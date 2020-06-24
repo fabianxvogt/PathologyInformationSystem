@@ -29,6 +29,7 @@ public class App {
 	public static void main(String[] args) {
 		welcomeDialog();
 		while(true) {
+			C.print("---------------- Hauptmenu --------------");
 			int menu = C.selectChoice(MAIN_MENU);
 			switch (menu) {
 			case 1:
@@ -54,11 +55,32 @@ public class App {
 
 
 	private static void welcomeDialog() {
-		C.print("Pathologie Informationssystem");
-		C.print("---------------------------------");
+		C.print("             _,.-------------.._            ");
+		C.print("          ,-'        j          `-.         ");
+		C.print("        ,'        .-'               `.      ");
+		C.print("       /          |    PATHOLOGIE     '     ");
+		C.print("      /         ,-'                    `    ");
+		C.print("     .         j   INFORMATIONSSYSTEM    \\  ");
+		C.print("    .          |                          \\ ");
+		C.print("    : ._       |   _....._                 .");
+		C.print("    |   -.     L-''       `.               :");
+		C.print("    | `.  \\  .'             `.             |");
+		C.print("   /.\\  `, Y'                 :           ,|");
+		C.print("  /.  :  | \\                  |         ,' |");
+		C.print(" \\.    * :  `\\                |      ,--   |");
+		C.print("  \\    .'     '-..___,..      |    _/      :");
+		C.print("   \\  `.      ___   ...._     '-../        '");
+		C.print(" .-'    \\    /| \\_/ | | |      ,'         / ");
+		C.print(" |       `--' |    '' |'|     /         .'  ");
+		C.print(" |            |      /. |    /       _,'    ");
+		C.print(" |-.-.....__..|     Y-dp`...:...--'''       ");
+		C.print(" |_|_|_L.L.T._/     |                       ");
+		C.print(" \\_|_|_L.T-''/      |  Von Jan Paul Peters  ");
+		C.print("  |                /         	   s0571610 ");
+		C.print(" /             _.-'                         ");
+		C.print(" :         _..'        und Fabian Vogt     ");
+		C.print(" \\__...--''                        s0570800  ");
 		C.print("");
-		C.print("Von Jan Paul Peters     -s0571610");
-		C.print("und Fabian Vogt         -s0570800");
 		C.print("");
 	}
 	
