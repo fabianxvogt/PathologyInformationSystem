@@ -13,7 +13,7 @@ public class Arzt extends Person {
 	}
 	@Override
 	public String toString() {
-		return "Personalnummer: " + this.arztID + "\n" +
+		return "\nPersonalnummer: " + this.arztID + "\n" +
 				super.toString();
 	}
 }

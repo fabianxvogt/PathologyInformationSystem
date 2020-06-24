@@ -27,6 +27,6 @@ public class Person {
 	public String toString() {
 		return 	"Name: " + this.name + "\n" +
 				"Vorname: " + this.vorname + "\n" + 
-				"Adresse: " + this.adresse;
+				"Adresse: " + this.adresse + "\n";
 	}
 }

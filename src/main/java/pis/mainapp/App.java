@@ -8,12 +8,14 @@ import java.util.Collection;
 import pis.console.ConsoleUtils;
 import pis.model.Arzt;
 import pis.model.PIS;
+import pis.model.Patient;
 
 public class App {
 	private static final String[] MAIN_MENU = {
-			"Neue Mitarbeiter*in einstellen",
-			"Mitarbeiterliste",
+			"Neue Ärzt*in einstellen",
+			"Ärzteliste",
 			"Neue Patient*in aufnehmen",
+			"Patientenliste",
 			"Neuen Fall erfassen",
 			"Offene Fälle ansehen",
 			"Fälle in Bearbeitung ansehen",
@@ -35,12 +37,22 @@ public class App {
 			case 2:
 				C.print(PIS.getAerzte().values().toString());
 				break;
+			case 3:
+				neuerPatient();
+				break;
+			case 4:
+				C.print(PIS.getPatienten().values().toString());
+				break;
 			case 8:
 				return;
 			}
+			C.print("Drücken Sie 'Enter' um zurück zum Hauptmenu zu kommmen.");
+			C.pressEnter();
 		}
 	}
 	
+
+
 	private static void welcomeDialog() {
 		C.print("Pathologie Informationssystem");
 		C.print("---------------------------------");
@@ -64,9 +76,39 @@ public class App {
 		while(true)
 			try {
 				PIS.addArzt(arzt);
+				C.print("Neue Mitarbeiter*in '" + arzt.getArztID() + "' eingestellt!");
 				break;
 			} catch (InvalidKeyException e) {
-				C.print(e.getMessage());
+				C.error(e.getMessage());
+				C.error("Bitte wählen Sie eine andere Personalnummer");
+				C.print("Personalnummer (Arzt-ID)");
+				arzt.setArztID(C.inputInt(1, 999999));
+				continue;
+			}
+	}
+	
+	private static void neuerPatient() {
+		Patient patient = new Patient();
+		C.print("Neue Patient*in aufnehmen:");
+		C.print("Nachnamen eingeben");
+		patient.setName(C.inputString(1, 40));
+		C.print("Vornamen eingeben");
+		patient.setVorname(C.inputString(1, 40));
+		C.print("Adresse eingeben");
+		patient.setAdresse(C.inputString(1, 100));
+		C.print("Patienten-ID eingeben");
+		patient.setPatientenID(C.inputInt(1, 999999));
+		while(true)
+			try {
+				PIS.addPatient(patient);
+				C.print("Neue Patient*in '" + patient.getPatientenID() + "' aufgenommen!");
+				break;
+			} catch (InvalidKeyException e) {
+				C.error(e.getMessage());
+				C.error("Bitte wählen Sie eine andere Patienten-ID!");
+				C.print("Patienten-ID eingeben");
+				patient.setPatientenID(C.inputInt(1, 999999));
+				continue;
 			}
 	}
 }

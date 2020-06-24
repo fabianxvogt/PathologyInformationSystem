@@ -14,7 +14,7 @@ public class Patient extends Person {
 	}
 	@Override
 	public String toString() {
-		return "Patienten-ID: " + this.patientID + "\n" +
+		return "\n Patienten-ID: " + this.patientID + "\n" +
 				super.toString();
 	}
 }

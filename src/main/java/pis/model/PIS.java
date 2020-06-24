@@ -15,7 +15,7 @@ public class PIS {
 	public HashMap<Integer, Patient> getPatienten() {
 		return patienten;
 	}
-	public int addPatient(Patient patient) throws InvalidKeyException {
+	public void addPatient(Patient patient) throws InvalidKeyException {
 		if (this.patienten.containsKey(patient.getPatientenID())) {
 			Patient x = this.getPatient(patient.getPatientenID());
 			throw new InvalidKeyException(
@@ -23,7 +23,7 @@ public class PIS {
 							x.getName() + ", " + x.getVorname()
 			);
 		}
-		return this.patienten.put(patient.getPatientenID(), patient).getPatientenID();
+		this.patienten.put(patient.getPatientenID(), patient);
 	}
 	public Patient getPatient(int patientID) throws InvalidKeyException {
 		if (!this.patienten.containsKey(patientID))
@@ -61,10 +61,10 @@ public class PIS {
 	public HashMap<Integer, Fall> getFaelle() {
 		return faelle;
 	}
-	public int addFall(Fall fall) throws InvalidKeyException {
+	public void addFall(Fall fall) throws InvalidKeyException {
 		if (this.faelle.containsKey(fall.getFallID()))
 			throw new InvalidKeyException("Fall-ID ist bereits vergeben");
-		return this.faelle.put(fall.getFallID(), fall).getFallID();
+		this.faelle.put(fall.getFallID(), fall);
 	}
 	public Fall getFall(int fallID) throws InvalidKeyException {
 		if (!this.faelle.containsKey(fallID))
