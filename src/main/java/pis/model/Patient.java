@@ -14,7 +14,10 @@ public class Patient extends Person {
 	}
 	@Override
 	public String toString() {
-		return "\n Patienten-ID: " + this.patientID + "\n" +
+		return String.format("%08d", this.patientID) + "|" +
 				super.toString();
+	}
+	public String getPatientIDFormatted() {
+		return String.format("%08d" , this.patientID);
 	}
 }

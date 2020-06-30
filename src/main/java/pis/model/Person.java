@@ -25,8 +25,8 @@ public class Person {
 	}
 	@Override
 	public String toString() {
-		return 	"Name: " + this.name + "\n" +
-				"Vorname: " + this.vorname + "\n" + 
-				"Adresse: " + this.adresse + "\n";
+		return String.format("%20s", this.name)	+ "|" +
+			   String.format("%20s", this.vorname) + "|" +
+			   String.format("%40s", this.adresse);
 	}
 }

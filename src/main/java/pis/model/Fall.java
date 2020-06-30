@@ -6,11 +6,15 @@ public class Fall {
 	private Arzt behandelnerArzt;
 	private MaterialArt materialArt;
 	private FallStatus status;
-	public Fall(int fallID) {
-		this.fallID = fallID;
+	private String fallName;
+	private String fallBeschreibung;
+	public Fall() {
 	}
 	public int getFallID() {
 		return fallID;
+	}
+	public void setFallID(int fallID) {
+		this.fallID = fallID;
 	}
 	public Patient getPatient() {
 		return patient;
@@ -35,5 +39,20 @@ public class Fall {
 	}
 	public void setStatus(FallStatus status) {
 		this.status = status;
+	}
+	public String getFallName() {
+		return fallName;
+	}
+	public void setFallName(String fallName) {
+		this.fallName = fallName;
+	}
+	public String getFallBeschreibung() {
+		return fallBeschreibung;
+	}
+	public void setFallBeschreibung(String fallBeschreibung) {
+		this.fallBeschreibung = fallBeschreibung;
+	}
+	public String getFallIDFormatted() {
+		return String.format("%08d", this.fallID);
 	}	
 }

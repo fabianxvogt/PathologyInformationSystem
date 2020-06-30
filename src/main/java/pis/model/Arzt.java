@@ -13,7 +13,10 @@ public class Arzt extends Person {
 	}
 	@Override
 	public String toString() {
-		return "\nPersonalnummer: " + this.arztID + "\n" +
+		return  String.format("%08d", this.arztID) + "|" +
 				super.toString();
+	}
+	public String getArztIDFormatted() {
+		return String.format("%08d" , this.arztID);
 	}
 }

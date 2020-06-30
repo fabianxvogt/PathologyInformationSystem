@@ -15,6 +15,8 @@ public class ConsoleUtils {
 	}
 	
 	public int selectChoice(String[] choices) {
+		if (choices.length==0)
+			return 0;
 		for (int i = 0; i < choices.length; i++)
 			print((i+1) + ". " + choices[i]);
 		print("Eingabe (1-" + choices.length + "):");
@@ -44,6 +46,8 @@ public class ConsoleUtils {
 		return inputBool();
 	}
 	public int inputInt(int min, int max) {
+		if (min > max)
+			return 0;
 		print("Eingabe (" + min + " - " + max + "):");
 		String ansStr = s.nextLine();
 		try {
