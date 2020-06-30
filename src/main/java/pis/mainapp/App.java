@@ -1,18 +1,18 @@
 package pis.mainapp;
 
 import java.security.InvalidKeyException;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 
 import pis.console.ConsoleUtils;
 import pis.model.Arzt;
+import pis.model.Biopsie;
 import pis.model.Fall;
 import pis.model.FallStatus;
 import pis.model.Krankenkasse;
 import pis.model.MaterialArt;
 import pis.model.PIS;
 import pis.model.Patient;
+import pis.model.Resektat;
 
 public class App {
 	private static final String[] MAIN_MENU = {
@@ -167,20 +167,31 @@ public class App {
 			C.error("Bisher wurde kein Arzt eingestellt!");
 			return;
 		}
-		// Neuen Fall erzeugen
-		Fall f = new Fall();
+		Fall f;
+		// Material-Art auswählen (bestimmt welche Fallart erzeugt wird)
+		C.print("->  Material-Art auswählen");
+		switch (MaterialArt.values[
+		                           C.selectChoice(
+		                        		   new String[] {MaterialArt.Biopsie.toString(), 
+		                        				   MaterialArt.Resektat.toString()}
+				                		   )-1
+				                   ]) {
+		case Biopsie:
+			f = new Biopsie();
+			break;
+		case Resektat:
+			f = new Resektat();
+			break;
+		default:
+			f = new Biopsie();
+			break;
+		}
 		C.print("->  Name des Falls");
 		f.setFallName(C.inputString(1, 20));
 		C.print("->  Beschreibung (optional)");
 		f.setFallBeschreibung(C.inputString(0, 100));
 		// Material-Art setzen
-		C.print("->  Material-Art auswählen");
-		f.setMaterialArt(
-				MaterialArt.values[
-				                   C.selectChoice(
-				                		   new String[] {MaterialArt.Biopsie.toString(), MaterialArt.Resektat.toString()}
-				                		   )-1
-				                   ]);
+		
 		// Patienten auswählen
 		C.print("->  Patient*in zuordnen");
 		Patient patient;
@@ -261,7 +272,6 @@ public class App {
 			return;
 		}
 	}
-	
 
 	private static void fallAnalysieren() {
 		C.print("Fall in Bearbeitung auswählen");

@@ -1,6 +1,6 @@
 package pis.model;
 
-public class Fall {
+public abstract class Fall {
 	private int fallID;
 	private Patient patient;
 	private Arzt behandelnderArzt;
@@ -28,12 +28,6 @@ public class Fall {
 	public void setBehandelnderArzt(Arzt behandelnderArzt) {
 		this.behandelnderArzt = behandelnderArzt;
 	}
-	public MaterialArt getMaterialArt() {
-		return materialArt;
-	}
-	public void setMaterialArt(MaterialArt materialArt) {
-		this.materialArt = materialArt;
-	}
 	public FallStatus getStatus() {
 		return status;
 	}
@@ -55,4 +49,5 @@ public class Fall {
 	public String getFallIDFormatted() {
 		return String.format("%08d", this.fallID);
 	}	
+	public abstract MaterialArt getMaterialArt();
 }
