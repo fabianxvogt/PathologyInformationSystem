@@ -1,7 +1,9 @@
 package pis.mainapp;
 
 import java.security.InvalidKeyException;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 import pis.console.ConsoleUtils;
 import pis.model.Arzt;
@@ -68,10 +70,13 @@ public class App {
 				neuerFall();
 				break;
 			case 6:
+				fallBearbeiten();
 				break;
 			case 7:
+				fallExportieren();
 				break;
 			case 8:
+				fallAnalysieren();
 				break;
 			case 9:
 				return;
@@ -80,7 +85,6 @@ public class App {
 			C.pressEnter();
 		}
 	}
-
 
 	private static void welcomeDialog() {
 		C.print("             _,.-------------.._            ");
@@ -225,17 +229,64 @@ public class App {
 	}
 	
 	private static void fallBearbeiten() {
-		// Unbearbeitete Fälle holen
-		HashMap<Integer, Fall> faelle = PIS.getFaelle();
-		HashMap<Integer, Fall> offen = new HashMap<Integer, Fall>();
-		for (Fall f : faelle.values())
-			if (f.getStatus() == FallStatus.NEU)
-				offen.put(f.getFallID(), f);
+		C.print("Unbearbeiteten Fall auswählen");
+		Fall f = fallAuswählen(getFaelleOfStatus(FallStatus.NEU));
+		if (f==null) {
+			C.error("Es wurden keine Fälle mit dem Status 'Neu' gefunden!");
+			return;
+		}
+			
+		switch (f.getMaterialArt()) {
+		case Biopsie:
+			// Wie viele Schnitte wurden erzeugt?
+			
+			// for each Schnitt in Schnitte
+			// Wie wurde Schnitt gefärbt?
+			
+			break;
+		case Resektat:
+			// Zuschnitt dokumentieren
+			
+			// Blöcke aus Apex oder Basis 
+			// Scheiben und Unterteilungen erfassen
+			break;
+		}
+	}
+	
+	private static void fallExportieren() {
+		C.print("Fall in Bearbeitung auswählen");
+		Fall f = fallAuswählen(getFaelleOfStatus(FallStatus.IN_BEARBEITUNG));
+		if (f==null) {
+			C.error("Es wurden keine Fälle mit dem Status 'In Bearbeitung' gefunden!");
+			return;
+		}
+	}
+	
+
+	private static void fallAnalysieren() {
+		C.print("Fall in Bearbeitung auswählen");
+		Fall f = fallAuswählen(getFaelleOfStatus(FallStatus.IN_BEARBEITUNG));
+		if (f==null) {
+			C.error("Es wurden keine Fälle mit dem Status 'In Bearbeitung' gefunden!");
+			return;
+		}		
+	}
+	
+	private static Fall fallAuswählen(HashMap<Integer, Fall> faelle) {
+		if(faelle.size() == 0)
+			return null;
 		// Auswahlliste erstellen
-		String[] fallChoices = new String[offen.size()];
-		for (int i = 0; i < offen.size(); i++) 
-			fallChoices[i] = offen.get(i+1).getFallID() + ", " + 
-								offen.get(i+1).getFallName();
-		Fall f = offen.get(C.selectChoice(fallChoices));
+		String[] fallChoices = new String[faelle.size()];
+		for (int i = 0; i < faelle.size(); i++) 
+			fallChoices[i] = faelle.get(i+1).getFallID() + ", " + 
+					faelle.get(i+1).getFallName();
+		return faelle.get(C.selectChoice(fallChoices));
+	}
+	private static HashMap<Integer, Fall> getFaelleOfStatus(FallStatus status) {
+		HashMap<Integer, Fall> faelle = new HashMap<Integer, Fall>();
+		for (Fall f : PIS.getFaelle().values())
+			if (f.getStatus() == status)
+				faelle.put(f.getFallID(), f);
+		return faelle;
 	}
 }
