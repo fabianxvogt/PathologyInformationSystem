@@ -23,8 +23,8 @@ public class App {
 			"Patientenliste",
 			"Neuen Fall erfassen",
 			"Fall im Labor bearbeiten",
-			"Fälle in Bearbeitung ansehen",
-			"Geschlossene Fälle ansehen",
+			"Fall exportieren",
+			"Fall analysieren",
 			"Beenden"
 	};
 	private static final ConsoleUtils C = new ConsoleUtils();
@@ -211,7 +211,7 @@ public class App {
 		String[] arztChoices = new String[aerzte.size()];
 		for (int i = 0; i < aerzte.size(); i++)
 			arztChoices[i] = aerzte.get(i+1).getName() + ", " + aerzte.get(i+1).getVorname();
-		f.setBehandelnerArzt(aerzte.get(C.selectChoice(arztChoices)));
+		f.setBehandelnderArzt(aerzte.get(C.selectChoice(arztChoices)));
 		
 		// Neue Fall-ID generieren
 		f.setFallID(PIS.getFaelle().size()+1);

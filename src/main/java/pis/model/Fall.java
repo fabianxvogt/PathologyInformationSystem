@@ -3,7 +3,7 @@ package pis.model;
 public class Fall {
 	private int fallID;
 	private Patient patient;
-	private Arzt behandelnerArzt;
+	private Arzt behandelnderArzt;
 	private MaterialArt materialArt;
 	private FallStatus status;
 	private String fallName;
@@ -22,11 +22,11 @@ public class Fall {
 	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
-	public Arzt getBehandelnerArzt() {
-		return behandelnerArzt;
+	public Arzt getBehandelnderArzt() {
+		return behandelnderArzt;
 	}
-	public void setBehandelnerArzt(Arzt behandelnerArzt) {
-		this.behandelnerArzt = behandelnerArzt;
+	public void setBehandelnderArzt(Arzt behandelnderArzt) {
+		this.behandelnderArzt = behandelnderArzt;
 	}
 	public MaterialArt getMaterialArt() {
 		return materialArt;
