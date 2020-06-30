@@ -2,6 +2,7 @@ package pis.model;
 
 public class Patient extends Person {
 	private int patientID;
+	private Krankenkasse krankenkasse;
 	
 	public Patient() {
 	}
@@ -19,5 +20,13 @@ public class Patient extends Person {
 	}
 	public String getPatientIDFormatted() {
 		return String.format("%08d" , this.patientID);
+	}
+
+	public Krankenkasse getKrankenkasse() {
+		return krankenkasse;
+	}
+
+	public void setKrankenkasse(Krankenkasse krankenkasse) {
+		this.krankenkasse = krankenkasse;
 	}
 }

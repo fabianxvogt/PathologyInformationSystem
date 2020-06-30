@@ -10,6 +10,7 @@ import pis.console.ConsoleUtils;
 import pis.model.Arzt;
 import pis.model.Fall;
 import pis.model.FallStatus;
+import pis.model.Krankenkasse;
 import pis.model.MaterialArt;
 import pis.model.PIS;
 import pis.model.Patient;
@@ -21,7 +22,7 @@ public class App {
 			"Neue Patient*in aufnehmen",
 			"Patientenliste",
 			"Neuen Fall erfassen",
-			"Fall bearbeiten",
+			"Fall im Labor bearbeiten",
 			"Fälle in Bearbeitung ansehen",
 			"Geschlossene Fälle ansehen",
 			"Beenden"
@@ -40,17 +41,31 @@ public class App {
 				neuerArzt();
 				break;
 			case 2:
+				HashMap<Integer, Arzt> aerzte = PIS.getAerzte();
+				if (aerzte.size() == 0) {
+					C.error("Bisher wurden keine Ärzt*innen eingestellt!");
+					break;
+				}
 				C.print(String.format("%-8s", "Pers.Nr.")+ "|" +String.format("%-20s", "Name")+ "|" +String.format("%-20s", "Vorname")+ "|" +String.format("%-40s", "Adresse"));
-				for (Arzt a : PIS.getAerzte().values())
+				C.print("-".repeat(93));
+				for (Arzt a : aerzte.values())
 					C.print(a.toString());
+				C.print("");
 				break;
 			case 3:
 				neuerPatient();
 				break;
 			case 4:
+				HashMap<Integer, Patient> patienten = PIS.getPatienten();
+				if (patienten.size() == 0) {
+					C.error("Bisher wurden keine Patient*innen erfasst!");
+					break;
+				}
 				C.print(String.format("%-8s", "Patient")+ "|" +String.format("%-20s", "Name")+ "|" +String.format("%-20s", "Vorname")+ "|" +String.format("%-40s", "Adresse"));
-				for (Patient p : PIS.getPatienten().values())
+				C.print("-".repeat(93));
+				for (Patient p : patienten.values())
 					C.print(p.toString());
+				C.print("");
 				break;
 			case 5:
 				neuerFall();
@@ -127,7 +142,11 @@ public class App {
 		patient.setVorname(C.inputString(1, 20));
 		C.print("->  Adresse eingeben");
 		patient.setAdresse(C.inputString(1, 40));
-		C.print("->  Patienten-ID eingeben");
+		C.print("->  Krankenkasse auswählen");
+		String[] krankenkassenChoices = new String[Krankenkasse.values.length];
+		for (int i = 0; i < Krankenkasse.values.length; i++)
+			krankenkassenChoices[i] = Krankenkasse.values[i].toString();
+		patient.setKrankenkasse(Krankenkasse.values[C.selectChoice(krankenkassenChoices)-1]);
 		patient.setPatientenID(PIS.getPatienten().size()+1);
 		try {
 			PIS.addPatient(patient);
@@ -186,7 +205,7 @@ public class App {
 		}
 		f.setPatient(patient);
 		C.print("->  Patient*in '" + patient.getName() + ", " + patient.getVorname() + "' wurde dem Fall zugeordnet!");
-		
+		C.print("");
 		// Arzt zuweisen
 		C.print("Behandelden Arzt auswählen");
 		String[] arztChoices = new String[aerzte.size()];
@@ -206,5 +225,20 @@ public class App {
 			C.error(e.getMessage());
 		}
 		C.print("==> Neuer Fall wurde erfasst! (ID: " + f.getFallIDFormatted() + ")");
+	}
+	
+	private static void fallBearbeiten() {
+		// Unbearbeitete Fälle holen
+		HashMap<Integer, Fall> faelle = PIS.getFaelle();
+		HashMap<Integer, Fall> offen = new HashMap<Integer, Fall>();
+		for (Fall f : faelle.values())
+			if (f.getStatus() == FallStatus.NEU)
+				offen.put(f.getFallID(), f);
+		// Auswahlliste erstellen
+		String[] fallChoices = new String[offen.size()];
+		for (int i = 0; i < offen.size(); i++) 
+			fallChoices[i] = offen.get(i+1).getFallID() + ", " + 
+								offen.get(i+1).getFallName();
+		Fall f = offen.get(C.selectChoice(fallChoices));
 	}
 }
