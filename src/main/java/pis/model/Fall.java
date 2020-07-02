@@ -49,4 +49,16 @@ public abstract class Fall {
 		return String.format("%08d", this.fallID);
 	}	
 	public abstract MaterialArt getMaterialArt();
+
+	@Override
+	public String toString() {
+		return "Fall{" +
+				"fallID=" + fallID +
+				", patient=" + patient +
+				", behandelnderArzt=" + behandelnderArzt +
+				", status=" + status +
+				", fallName='" + fallName + '\'' +
+				", fallBeschreibung='" + fallBeschreibung + '\'' +
+				'}';
+	}
 }
