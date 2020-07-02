@@ -73,6 +73,37 @@ public class ConsoleUtils {
 		error("Geben Sie genau ein Zeichen ein! Erlaubt: " + Arrays.toString(allowed));
 		return inputChar(allowed);
 	}
+	public char inputChar() {
+		print("Eingabe (Zeichen):");
+		String ans = s.nextLine();
+		if (ans.length() == 1)
+			return ans.toUpperCase().charAt(0);
+		error("Geben Sie genau ein Zeichen ein!");
+		return inputChar();
+	}
+	public double inputDouble(double min, double max, int decimalPlaces) {
+		print("Eingabe (" + decimalPlaces + " Dezimalstellen):" );
+		String ansStr = s.nextLine();
+		try {
+			double ans = Double.parseDouble(ansStr);
+			if (ans < min) {
+				error("Eingabe zu klein (Minimum: " + min + ")");
+				return inputDouble(min, max, decimalPlaces);
+			} else if (ans > max) {
+				error("Eingabe zu groß (Maximum: " + max + ")");
+				return inputDouble(min, max, decimalPlaces);
+			}
+			if ((ans % 1) != 0 && ansStr.split("\\.")[1].length() > decimalPlaces) {
+				error("Zu viele Nachkommastellen!");
+				return inputDouble(min, max, decimalPlaces);
+			}
+			return ans;
+			
+		} catch (NumberFormatException e) {
+			error("Geben Sie eine Zahl ein!");
+			return inputDouble(min, max, decimalPlaces);
+		}
+	}
 	public String inputString(int minLength, int maxLength) {
 		print("Eingabe: ");
 		String ans = s.nextLine();

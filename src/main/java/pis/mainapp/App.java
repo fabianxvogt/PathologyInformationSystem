@@ -2,17 +2,22 @@ package pis.mainapp;
 
 import java.security.InvalidKeyException;
 import java.util.HashMap;
+import java.util.List;
 
 import pis.console.ConsoleUtils;
 import pis.model.Arzt;
-import pis.model.Biopsie;
 import pis.model.Fall;
 import pis.model.FallStatus;
 import pis.model.Krankenkasse;
 import pis.model.MaterialArt;
 import pis.model.PIS;
 import pis.model.Patient;
-import pis.model.Resektat;
+import pis.model.biopsie.Biopsie;
+import pis.model.resektat.Apex;
+import pis.model.resektat.Basis;
+import pis.model.resektat.Resektat;
+import pis.model.resektat.Scheibe;
+import pis.model.resektat.Stueck;
 
 public class App {
 	private static final String[] MAIN_MENU = {
@@ -241,32 +246,25 @@ public class App {
 	
 	private static void fallBearbeiten() {
 		C.print("Unbearbeiteten Fall auswählen");
-		Fall f = fallAuswählen(getFaelleOfStatus(FallStatus.NEU));
+		Fall f = fallAuswaehlen(PIS.getFaelleOfStatus(FallStatus.NEU));
 		if (f==null) {
 			C.error("Es wurden keine Fälle mit dem Status 'Neu' gefunden!");
 			return;
 		}
-			
 		switch (f.getMaterialArt()) {
 		case Biopsie:
-			// Wie viele Schnitte wurden erzeugt?
-			
-			// for each Schnitt in Schnitte
-			// Wie wurde Schnitt gefärbt?
 			
 			break;
 		case Resektat:
-			// Zuschnitt dokumentieren
-			
-			// Blöcke aus Apex oder Basis 
-			// Scheiben und Unterteilungen erfassen
+			prostatektomieDurchfuehren((Resektat)f);
+		default:
 			break;
 		}
 	}
 	
 	private static void fallExportieren() {
 		C.print("Fall in Bearbeitung auswählen");
-		Fall f = fallAuswählen(getFaelleOfStatus(FallStatus.IN_BEARBEITUNG));
+		Fall f = fallAuswaehlen(PIS.getFaelleOfStatus(FallStatus.IN_BEARBEITUNG));
 		if (f==null) {
 			C.error("Es wurden keine Fälle mit dem Status 'In Bearbeitung' gefunden!");
 			return;
@@ -275,28 +273,93 @@ public class App {
 
 	private static void fallAnalysieren() {
 		C.print("Fall in Bearbeitung auswählen");
-		Fall f = fallAuswählen(getFaelleOfStatus(FallStatus.IN_BEARBEITUNG));
+		Fall f = fallAuswaehlen(PIS.getFaelleOfStatus(FallStatus.IN_BEARBEITUNG));
 		if (f==null) {
 			C.error("Es wurden keine Fälle mit dem Status 'In Bearbeitung' gefunden!");
 			return;
 		}		
 	}
 	
-	private static Fall fallAuswählen(HashMap<Integer, Fall> faelle) {
+	private static Fall fallAuswaehlen(List<Fall> faelle) {
 		if(faelle.size() == 0)
 			return null;
 		// Auswahlliste erstellen
 		String[] fallChoices = new String[faelle.size()];
 		for (int i = 0; i < faelle.size(); i++) 
-			fallChoices[i] = faelle.get(i+1).getFallID() + ", " + 
-					faelle.get(i+1).getFallName();
-		return faelle.get(C.selectChoice(fallChoices));
+			fallChoices[i] = faelle.get(i).getFallIDFormatted() + ", " + 
+					faelle.get(i).getFallName();
+		return faelle.get(C.selectChoice(fallChoices)-1);
 	}
-	private static HashMap<Integer, Fall> getFaelleOfStatus(FallStatus status) {
-		HashMap<Integer, Fall> faelle = new HashMap<Integer, Fall>();
-		for (Fall f : PIS.getFaelle().values())
-			if (f.getStatus() == status)
-				faelle.put(f.getFallID(), f);
-		return faelle;
+	private static void prostatektomieDurchfuehren(Resektat r) {
+		C.print("==> Prostatektomie durchführen");
+		C.print("->  Geben Sie das Gewicht der Prostata in Gramm an:");
+		r.setGewicht(C.inputDouble(1, 1000, 2));
+		C.print("->  Geben Sie die apiko-basale Länge in Millimetern an:");
+		r.setApikoBasal(C.inputDouble(1, 1000, 2));
+		C.print("->  Geben Sie die horizontale Länge in Millimetern an:");
+		r.setHorizontal(C.inputDouble(1, 1000, 2));
+		C.print("->  Geben Sie die antero-dorsale Länge in Millimetern an:");
+		r.setAnteroDorsal(C.inputDouble(1, 1000, 2));
+		
+		C.print("==> Prostata-Maße erfasst! Beginnen Sie mit dem Zuschnitt.");
+		C.print("->  Schneiden Sie den Apex ab und zerteilen Sie ihn in 2 Hälften...");
+		C.print("->  Anschließend zerschneiden Sie die beiden Teilhälften in beliebig viele Stücke.");
+		C.print("->  Fortfahren (Enter)");
+		C.pressEnter();
+		
+		C.print("->  Beginne mit der Erfassung der Objektträger für den Apex...");
+		r.setApex(new Apex());
+		objekttraegerErfassen(r.getApex(), true);
+		objekttraegerErfassen(r.getApex(), false);
+		
+		C.print("==> Apex-Zuschnitt wurde erfasst! Nun schneiden Sie die Prostata bis zur Basis in Scheiben...");
+		C.print("->  Wie viele Scheiben wurden erzeugt?");
+		int anzahlScheiben = C.inputInt(1, 10);
+		C.print("==> Anzahl der Scheiben wurde erfasst. Nun zerteilen Sie alle Scheiben in Hälften...");
+		C.print("->  Anschließend zerschneiden Sie die Teilhäften jeder Scheibe in beliebig viele Stücke.");
+		C.print("->  Fortfahren (Enter)");
+		C.pressEnter();
+		
+		for (int i = 0; i < anzahlScheiben; i++) {
+			C.print("->  Beginne mit der Erfassung der Objektträger für Scheibe " + (i+1) + "...");
+			Scheibe s = new Scheibe();
+			objekttraegerErfassen(s, true);
+			objekttraegerErfassen(s, false);
+			C.print("==> Zuschnitt von Scheibe " + (i+1) + " wurde erfasst!");
+			r.getScheiben().add(s);
+		}
+		C.print("==> Scheiben wurden erfasst! Zuletzt zerteilen Sie die Basis in 2 Hälften.");
+		C.print("->  Anschließend zerschneiden Sie die Teilhälften in beliebig viele Stücke.");
+		C.print("->  Fortfahren (Enter)");
+		C.pressEnter();
+		
+		C.print("->  Beginne mit der Erfassung der Objektträger für die Basis...");
+		r.setBasis(new Basis());
+		objekttraegerErfassen(r.getBasis(), true);
+		objekttraegerErfassen(r.getBasis(), false);
+		C.print("==> Basis-Zuschnitt wurde erfasst!");
+		C.print("==> Prostatektomie wurde im Fall " + r.getFallIDFormatted() + " dokumentiert!");
+	}
+	private static void objekttraegerErfassen(Scheibe s, boolean istRechteHaelfte) {
+		// Information um welche Hälfte es geht (für console output)
+		String haelfteInfo;
+		if(istRechteHaelfte)
+			haelfteInfo = "rechte Hälfte";
+		else
+			haelfteInfo = "linke Hälfte";
+		// Wie viel Stücke wurden erzeugt?
+		C.print("->  In wie viele Stücke haben Sie die "+haelfteInfo+" zerteilt?");
+		int anzahl = C.inputInt(1, 10);
+		// Objektträger erfassen
+		C.print("->  Geben Sie die Objektträger für die einzelnen Stücke an:");
+		for (int i = 0; i < anzahl; i++) {
+			C.print("Objektträger für Stück "+(i+1)+" ("+haelfteInfo+"):");
+			char objektTraeger = C.inputChar();
+			if(istRechteHaelfte)
+				s.addStueckRechts(new Stueck(objektTraeger));
+			else 
+				s.addStueckLinks(new Stueck(objektTraeger));
+		}
+		C.print("==> Objektträger wurden für die "+haelfteInfo+" erfasst!");
 	}
 }

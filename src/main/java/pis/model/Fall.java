@@ -4,7 +4,6 @@ public abstract class Fall {
 	private int fallID;
 	private Patient patient;
 	private Arzt behandelnderArzt;
-	private MaterialArt materialArt;
 	private FallStatus status;
 	private String fallName;
 	private String fallBeschreibung;

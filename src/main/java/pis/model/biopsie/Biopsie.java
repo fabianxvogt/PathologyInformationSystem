@@ -1,4 +1,7 @@
-package pis.model;
+package pis.model.biopsie;
+
+import pis.model.Fall;
+import pis.model.MaterialArt;
 
 public class Biopsie extends Fall {
 

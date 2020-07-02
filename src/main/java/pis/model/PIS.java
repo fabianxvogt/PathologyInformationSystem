@@ -2,6 +2,8 @@ package pis.model;
 
 import java.security.InvalidKeyException;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class PIS {
 	private HashMap<Integer, Patient> patienten;
@@ -75,6 +77,12 @@ public class PIS {
 		if (!this.faelle.containsKey(fallID))
 			throw new InvalidKeyException("Fall-ID wurde nicht gefunden!");
 		this.faelle.remove(fallID);
+	}
+	public List<Fall> getFaelleOfStatus(FallStatus status) {
+		return this.faelle.values()
+				.stream()
+				.filter(fall -> fall.getStatus() == status)
+				.collect(Collectors.toList());
 	}
 	
 }
