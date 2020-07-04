@@ -11,12 +11,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//import jdk.internal.joptsimple.util.KeyValuePair;
-
 public class App {
 	private static final String[] MAIN_MENU = {
-			"Neue ï¿½rzt*in einstellen",
-			"ï¿½rzteliste",
+			"Neue Aerzt*in einstellen",
+			"Aerzteliste",
 			"Neue Patient*in aufnehmen",
 			"Patientenliste",
 			"Neuen Fall erfassen",
@@ -43,7 +41,7 @@ public class App {
 			case 2:
 				HashMap<Integer, Arzt> aerzte = PIS.getAerzte();
 				if (aerzte.size() == 0) {
-					C.error("Bisher wurden keine ï¿½rzt*innen eingestellt!");
+					C.error("Bisher wurden keine Aerzt*innen eingestellt!");
 					break;
 				}
 				C.print(String.format("%-8s", "Pers.Nr.")+ "|" +String.format("%-20s", "Name")+ "|" +String.format("%-20s", "Vorname")+ "|" +String.format("%-40s", "Adresse"));
@@ -82,7 +80,7 @@ public class App {
 			case 9:
 				return;
 			}
-			C.print("Drï¿½cken Sie 'Enter' um zurï¿½ck zum Hauptmenu zu kommmen.");
+			C.print("Druecken Sie 'Enter' um zurueck zum Hauptmenu zu kommmen.");
 			C.pressEnter();
 		}
 	}
@@ -91,13 +89,13 @@ public class App {
 		Map<String, Color> farben = new HashMap<String, Color>();
 		farben.put("Blau"         	,Color.BLUE	 		);
 		farben.put("Cyan"         	,Color.CYAN	 		);
-		farben.put("Grï¿½n"       	,Color.GREEN  		);
+		farben.put("Gruen"       	,Color.GREEN  		);
 		farben.put("Gelb"      		,Color.YELLOW 		);
 		farben.put("Magenta"   		,Color.MAGENTA 		);
 		farben.put("Orange"    		,Color.ORANGE 	 	);
 		farben.put("Pink"         	,Color.PINK 	 	);
 		farben.put("Rot"          	,Color.RED 	  		);
-		farben.put("Weiï¿½"       	,Color.WHITE   		);
+		farben.put("Weiß"       	,Color.WHITE   		);
 		farben.put("Grau"			,Color.GRAY         );
 		farben.put("Hellgrau"   	,Color.LIGHT_GRAY 	);
 		farben.put("Dunkelgrau"		,Color.DARK_GRAY  	);
@@ -147,7 +145,7 @@ public class App {
 		arzt.setArztID(PIS.getAerzte().size()+1);
 		try {
 			PIS.addArzt(arzt);
-			C.print("==> Neue ï¿½rzt*in eingestellt! (Personalnummer: " + arzt.getArztIDFormatted() + ")");
+			C.print("==> Neue Aerzt*in eingestellt! (Personalnummer: " + arzt.getArztIDFormatted() + ")");
 		} catch (InvalidKeyException e) {
 			C.error(e.getMessage());
 		}
@@ -162,7 +160,7 @@ public class App {
 		patient.setVorname(C.inputString(1, 20));
 		C.print("->  Adresse eingeben");
 		patient.setAdresse(C.inputString(1, 40));
-		C.print("->  Krankenkasse auswï¿½hlen");
+		C.print("->  Krankenkasse auswaehlen");
 		String[] krankenkassenChoices = new String[Krankenkasse.values.length];
 		for (int i = 0; i < Krankenkasse.values.length; i++)
 			krankenkassenChoices[i] = Krankenkasse.values[i].toString();
@@ -188,7 +186,7 @@ public class App {
 		}
 		Fall f;
 		// Material-Art auswï¿½hlen (bestimmt welche Fallart erzeugt wird)
-		C.print("->  Material-Art auswï¿½hlen");
+		C.print("->  Material-Art auswaehlen");
 		switch (MaterialArt.values[
 		                           C.selectChoice(
 		                        		   new String[] {MaterialArt.Biopsie.toString(), 
@@ -217,7 +215,7 @@ public class App {
 		// Neuer Patient oder bereits erfasst?
 		int opt = C.selectChoice(new String[] {
 				"Neue Patient*in erfassen", 
-				"Bereits erfasste Patient*in auswï¿½hlen"
+				"Bereits erfasste Patient*in auswaehlen"
 				});
 		if (opt == 1 )
 			patient = neuerPatient();	
@@ -238,7 +236,7 @@ public class App {
 		C.print("->  Patient*in '" + patient.getName() + ", " + patient.getVorname() + "' wurde dem Fall zugeordnet!");
 		C.print("");
 		// Arzt zuweisen
-		C.print("Behandelden Arzt auswï¿½hlen");
+		C.print("Behandelden Arzt auswaehlen");
 		String[] arztChoices = new String[aerzte.size()];
 		for (int i = 0; i < aerzte.size(); i++)
 			arztChoices[i] = aerzte.get(i+1).getName() + ", " + aerzte.get(i+1).getVorname();
@@ -259,10 +257,10 @@ public class App {
 	}
 	
 	private static void fallBearbeiten() {
-		C.print("Unbearbeiteten Fall auswï¿½hlen");
+		C.print("Unbearbeiteten Fall auswaehlen");
 		Fall f = fallAuswaehlen(PIS.getFaelleOfStatus(FallStatus.NEU));
 		if (f==null) {
-			C.error("Es wurden keine Fï¿½lle mit dem Status 'Neu' gefunden!");
+			C.error("Es wurden keine Faelle mit dem Status 'Neu' gefunden!");
 			return;
 		}
 		f.setStatus(FallStatus.IN_BEARBEITUNG);
@@ -279,10 +277,10 @@ public class App {
 	}
 	
 	private static void fallExportieren() {
-		C.print("Fall in Bearbeitung auswï¿½hlen");
+		C.print("Fall in Bearbeitung auswaehlen");
 		Fall f = fallAuswaehlen(PIS.getFaelleOfStatus(FallStatus.IN_BEARBEITUNG));
 		if (f==null) {
-			C.error("Es wurden keine Fï¿½lle mit dem Status 'In Bearbeitung' gefunden!");
+			C.error("Es wurden keine Faelle mit dem Status 'In Bearbeitung' gefunden!");
 			return;
 		}
 		f.setStatus(FallStatus.IN_BEARBEITUNG);
@@ -302,10 +300,10 @@ public class App {
 	}
 
 	private static void fallAnalysieren() {
-		C.print("Fall in Bearbeitung auswï¿½hlen");
+		C.print("Fall in Bearbeitung auswaehlen");
 		Fall f = fallAuswaehlen(PIS.getFaelleOfStatus(FallStatus.IN_BEARBEITUNG));
 		if (f==null) {
-			C.error("Es wurden keine Fï¿½lle mit dem Status 'In Bearbeitung' gefunden!");
+			C.error("Es wurden keine Faelle mit dem Status 'In Bearbeitung' gefunden!");
 			return;
 		}	
 		C.print(f.getAnalyse());
@@ -332,13 +330,13 @@ public class App {
 		C.print("->  Geben Sie die antero-dorsale Lï¿½nge in Millimetern an:");
 		r.setAnteroDorsal(C.inputDouble(1, 1000, 2));
 		
-		C.print("==> Prostata-Maï¿½e erfasst! Beginnen Sie mit dem Zuschnitt.");
-		C.print("->  Schneiden Sie den Apex ab und zerteilen Sie ihn in 2 Hï¿½lften...");
-		C.print("->  Anschlieï¿½end zerschneiden Sie die beiden Teilhï¿½lften in beliebig viele Stï¿½cke.");
+		C.print("==> Prostata-Eigenschaften erfasst! Beginnen Sie mit dem Zuschnitt.");
+		C.print("->  Schneiden Sie den Apex ab und zerteilen Sie ihn in 2 Haelften...");
+		C.print("->  Anschliessend zerschneiden Sie die beiden Teilhaelften in beliebig viele Stï¿½cke.");
 		C.print("->  Fortfahren (Enter)");
 		C.pressEnter();
 		
-		C.print("->  Beginne mit der Erfassung der Objekttrï¿½ger fï¿½r den Apex...");
+		C.print("->  Beginne mit der Erfassung der Objekttraeger fuer den Apex...");
 		r.setApex(new Apex());
 		objekttraegerErfassen(r.getApex(), true);
 		objekttraegerErfassen(r.getApex(), false);
@@ -347,24 +345,24 @@ public class App {
 		C.print("->  Wie viele Scheiben wurden erzeugt?");
 		int anzahlScheiben = C.inputInt(1, 10);
 		C.print("==> Anzahl der Scheiben wurde erfasst. Nun zerteilen Sie alle Scheiben in Hï¿½lften...");
-		C.print("->  Anschlieï¿½end zerschneiden Sie die Teilhï¿½ften jeder Scheibe in beliebig viele Stï¿½cke.");
+		C.print("->  Anschliessend zerschneiden Sie die Teilhaelften jeder Scheibe in beliebig viele Stï¿½cke.");
 		C.print("->  Fortfahren (Enter)");
 		C.pressEnter();
 		
 		for (int i = 0; i < anzahlScheiben; i++) {
-			C.print("->  Beginne mit der Erfassung der Objekttrï¿½ger fï¿½r Scheibe " + (i+1) + "...");
+			C.print("->  Beginne mit der Erfassung der Objekttraeger fuer Scheibe " + (i+1) + "...");
 			Scheibe s = new Scheibe();
 			objekttraegerErfassen(s, true);
 			objekttraegerErfassen(s, false);
 			C.print("==> Zuschnitt von Scheibe " + (i+1) + " wurde erfasst!");
 			r.getScheiben().add(s);
 		}
-		C.print("==> Scheiben wurden erfasst! Zuletzt zerteilen Sie die Basis in 2 Hï¿½lften.");
-		C.print("->  Anschlieï¿½end zerschneiden Sie die Teilhï¿½lften in beliebig viele Stï¿½cke.");
+		C.print("==> Scheiben wurden erfasst! Zuletzt zerteilen Sie die Basis in 2 Haelften.");
+		C.print("->  Anschliessend zerschneiden Sie die Teilhaelften in beliebig viele Stuecke.");
 		C.print("->  Fortfahren (Enter)");
 		C.pressEnter();
 		
-		C.print("->  Beginne mit der Erfassung der Objekttrï¿½ger fï¿½r die Basis...");
+		C.print("->  Beginne mit der Erfassung der Objekttraeger fuer die Basis...");
 		r.setBasis(new Basis());
 		objekttraegerErfassen(r.getBasis(), true);
 		objekttraegerErfassen(r.getBasis(), false);
@@ -390,22 +388,22 @@ public class App {
 		// Information um welche Hï¿½lfte es geht (fï¿½r console output)
 		String haelfteInfo;
 		if(istRechteHaelfte)
-			haelfteInfo = "rechte Hï¿½lfte";
+			haelfteInfo = "rechte Haelfte";
 		else
-			haelfteInfo = "linke Hï¿½lfte";
+			haelfteInfo = "linke Haelfte";
 		// Wie viel Stï¿½cke wurden erzeugt?
-		C.print("->  In wie viele Stï¿½cke haben Sie die "+haelfteInfo+" zerteilt?");
+		C.print("->  In wie viele Stuecke haben Sie die "+haelfteInfo+" zerteilt?");
 		int anzahl = C.inputInt(1, 10);
 		// Objekttrï¿½ger erfassen
-		C.print("->  Geben Sie die Objekttrï¿½ger fï¿½r die einzelnen Stï¿½cke an:");
+		C.print("->  Geben Sie die Objekttraeger fuer die einzelnen Stuecke an:");
 		for (int i = 0; i < anzahl; i++) {
-			C.print("Objekttrï¿½ger fï¿½r Stï¿½ck "+(i+1)+" ("+haelfteInfo+"):");
+			C.print("Objekttraeger fuer Stueck "+(i+1)+" ("+haelfteInfo+"):");
 			char objektTraeger = C.inputChar();
 			if(istRechteHaelfte)
 				s.addStueckRechts(new Stueck(objektTraeger));
 			else 
 				s.addStueckLinks(new Stueck(objektTraeger));
 		}
-		C.print("==> Objekttrï¿½ger wurden fï¿½r die "+haelfteInfo+" erfasst!");
+		C.print("==> Objekttraeger wurden fuer die "+haelfteInfo+" erfasst!");
 	}
 }

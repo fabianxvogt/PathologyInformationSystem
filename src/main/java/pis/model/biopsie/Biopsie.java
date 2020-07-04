@@ -24,6 +24,7 @@ public class Biopsie extends Fall {
 	@Override
 	protected String getAnalyseDetails() {
 		String analyse =
+				"DATEN ZUR BIOPSIE" + "\n" +
 				"SCHNITTE: " + "\n" +
 				"Anzahl Schnitte: " + this.schnitte.size() + "\n";
 		for (int i = 0; i < this.schnitte.size(); i++) {

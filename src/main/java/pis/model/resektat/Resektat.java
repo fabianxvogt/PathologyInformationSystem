@@ -75,7 +75,7 @@ public class Resektat extends Fall {
 				// Apex und Basis werden einzeln erfasst und zählen nicht als Scheibe. Daher: AnzahlScheiben+2
 				"Durchschn. Dicke:    " + this.apikoBasal / (this.scheiben.size()+2) +
 				"\n" +
-				"OBJEKTTRÄGER:" + "\n" +
+				"OBJEKTTRAEGER:" + "\n" +
 				"Apex: " + "\n" +
 				getObjekttraegerString(this.getApex()) + "\n" +
 				"Scheiben: " + "\n";
