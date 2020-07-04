@@ -25,7 +25,7 @@ public class ConsoleUtils {
 			try {
 				int i = Integer.parseInt(ans);
 				if (i < 1 || i > choices.length) {
-					error("Bitte wählen Sie eine Zahl zwischen 1 und " + choices.length);
+					error("Bitte wÃ¤hlen Sie eine Zahl zwischen 1 und " + choices.length);
 					continue;
 				}
 				return i;
@@ -42,7 +42,7 @@ public class ConsoleUtils {
 			return true;
 		else if (ans.toUpperCase().equals("N"))
 			return false;
-		error("Ungültige Eingabe! Wählen Sie J (Ja) oder N (Nein)!");
+		error("UngÃ¼ltige Eingabe! WÃ¤hlen Sie J (Ja) oder N (Nein)!");
 		return inputBool();
 	}
 	public int inputInt(int min, int max) {
@@ -56,7 +56,7 @@ public class ConsoleUtils {
 				error("Eingabe zu klein (Minimum: " + min + ")");
 				return inputInt(min, max);
 			} else if (ans > max) {
-				error("Eingabe zu groß (Maximum: " + max + ")");
+				error("Eingabe zu groÃŸ (Maximum: " + max + ")");
 				return inputInt(min, max);
 			}
 			return ans;
@@ -90,7 +90,7 @@ public class ConsoleUtils {
 				error("Eingabe zu klein (Minimum: " + min + ")");
 				return inputDouble(min, max, decimalPlaces);
 			} else if (ans > max) {
-				error("Eingabe zu groß (Maximum: " + max + ")");
+				error("Eingabe zu groÃŸ (Maximum: " + max + ")");
 				return inputDouble(min, max, decimalPlaces);
 			}
 			if ((ans % 1) != 0 && ansStr.split("\\.")[1].length() > decimalPlaces) {
@@ -126,10 +126,10 @@ public class ConsoleUtils {
 			date = LocalDate.parse(ans, format);
 			if (date != null)
 				return date;
-			error("Ungültiges Format!");
+			error("UngÃ¼ltiges Format!");
 			return inputDate();
 		} catch (DateTimeParseException e) {
-			error("Ungültiges Format!");
+			error("UngÃ¼ltiges Format!");
 			return inputDate();
 		}		
 	}
@@ -147,7 +147,7 @@ public class ConsoleUtils {
 		//	return true;
 		//else if (ans.toUpperCase().equals("N"))
 		//	return false;
-		//error("Ungültige Eingabe! Wählen sie 'J' (Ja) oder 'N' (Nein).");
+		//error("UngÃ¼ltige Eingabe! WÃ¤hlen sie 'J' (Ja) oder 'N' (Nein).");
 		//return confirm();
 	}
 	public void pressEnter() {
