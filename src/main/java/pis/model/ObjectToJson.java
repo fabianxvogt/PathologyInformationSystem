@@ -1,32 +1,47 @@
 package pis.model;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import pis.model.biopsie.Biopsie;
 import pis.model.resektat.Resektat;
 
-public class ObjectToJson {
-    public static void main(String[] args){
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+import java.io.FileWriter;
 
+public class ObjectToJson {
+
+    public void resektatToJson(){
         FallObject f = new FallObject();
 
         Fall fRes = new Resektat();
-        Fall fBio = new Biopsie();
-
         f.getL().add(fRes);
+
+        storeInJson("Resektat",f);
+    }
+
+    public void biopsieToJson(){
+        FallObject f = new FallObject();
+
+        Fall fBio = new Biopsie();
         f.getL().add(fBio);
 
-        String s = null;
+        storeInJson("Biospie",f);
+    }
 
+    public void storeInJson(String filename, FallObject f) {
+        String s = null;
         try {
             s = mapper.writeValueAsString(f);
         }catch (JsonProcessingException e){
             e.printStackTrace();
         }
-        System.out.println(s);
+        //System.out.println(s);
+        try {
+            FileWriter fileWriter = new FileWriter(filename + ".json");
+            fileWriter.write(s.toString());
+            fileWriter.flush();
+            fileWriter.close();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
 }
+

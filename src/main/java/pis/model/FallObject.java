@@ -3,8 +3,6 @@ package pis.model;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 public class FallObject {
 
     private List l;

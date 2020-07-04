@@ -1,33 +1,22 @@
 package pis.mainapp;
 
-import java.awt.Color;
+import pis.console.ConsoleUtils;
+import pis.model.*;
+import pis.model.biopsie.Biopsie;
+import pis.model.resektat.*;
+
+import java.awt.*;
 import java.security.InvalidKeyException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import jdk.internal.joptsimple.util.KeyValuePair;
-import pis.console.ConsoleUtils;
-import pis.model.Arzt;
-import pis.model.Fall;
-import pis.model.FallStatus;
-import pis.model.Krankenkasse;
-import pis.model.MaterialArt;
-import pis.model.PIS;
-import pis.model.Patient;
-import pis.model.biopsie.Biopsie;
-import pis.model.resektat.Apex;
-import pis.model.resektat.Basis;
-import pis.model.resektat.Resektat;
-import pis.model.resektat.Scheibe;
-import pis.model.resektat.Stueck;
+//import jdk.internal.joptsimple.util.KeyValuePair;
 
 public class App {
 	private static final String[] MAIN_MENU = {
-			"Neue Ärzt*in einstellen",
-			"Ärzteliste",
+			"Neue ï¿½rzt*in einstellen",
+			"ï¿½rzteliste",
 			"Neue Patient*in aufnehmen",
 			"Patientenliste",
 			"Neuen Fall erfassen",
@@ -54,7 +43,7 @@ public class App {
 			case 2:
 				HashMap<Integer, Arzt> aerzte = PIS.getAerzte();
 				if (aerzte.size() == 0) {
-					C.error("Bisher wurden keine Ärzt*innen eingestellt!");
+					C.error("Bisher wurden keine ï¿½rzt*innen eingestellt!");
 					break;
 				}
 				C.print(String.format("%-8s", "Pers.Nr.")+ "|" +String.format("%-20s", "Name")+ "|" +String.format("%-20s", "Vorname")+ "|" +String.format("%-40s", "Adresse"));
@@ -93,7 +82,7 @@ public class App {
 			case 9:
 				return;
 			}
-			C.print("Drücken Sie 'Enter' um zurück zum Hauptmenu zu kommmen.");
+			C.print("Drï¿½cken Sie 'Enter' um zurï¿½ck zum Hauptmenu zu kommmen.");
 			C.pressEnter();
 		}
 	}
@@ -102,13 +91,13 @@ public class App {
 		Map<String, Color> farben = new HashMap<String, Color>();
 		farben.put("Blau"         	,Color.BLUE	 		);
 		farben.put("Cyan"         	,Color.CYAN	 		);
-		farben.put("Grün"       	,Color.GREEN  		);
+		farben.put("Grï¿½n"       	,Color.GREEN  		);
 		farben.put("Gelb"      		,Color.YELLOW 		);
 		farben.put("Magenta"   		,Color.MAGENTA 		);
 		farben.put("Orange"    		,Color.ORANGE 	 	);
 		farben.put("Pink"         	,Color.PINK 	 	);
 		farben.put("Rot"          	,Color.RED 	  		);
-		farben.put("Weiß"       	,Color.WHITE   		);
+		farben.put("Weiï¿½"       	,Color.WHITE   		);
 		farben.put("Grau"			,Color.GRAY         );
 		farben.put("Hellgrau"   	,Color.LIGHT_GRAY 	);
 		farben.put("Dunkelgrau"		,Color.DARK_GRAY  	);
@@ -158,7 +147,7 @@ public class App {
 		arzt.setArztID(PIS.getAerzte().size()+1);
 		try {
 			PIS.addArzt(arzt);
-			C.print("==> Neue Ärzt*in eingestellt! (Personalnummer: " + arzt.getArztIDFormatted() + ")");
+			C.print("==> Neue ï¿½rzt*in eingestellt! (Personalnummer: " + arzt.getArztIDFormatted() + ")");
 		} catch (InvalidKeyException e) {
 			C.error(e.getMessage());
 		}
@@ -173,7 +162,7 @@ public class App {
 		patient.setVorname(C.inputString(1, 20));
 		C.print("->  Adresse eingeben");
 		patient.setAdresse(C.inputString(1, 40));
-		C.print("->  Krankenkasse auswählen");
+		C.print("->  Krankenkasse auswï¿½hlen");
 		String[] krankenkassenChoices = new String[Krankenkasse.values.length];
 		for (int i = 0; i < Krankenkasse.values.length; i++)
 			krankenkassenChoices[i] = Krankenkasse.values[i].toString();
@@ -198,8 +187,8 @@ public class App {
 			return;
 		}
 		Fall f;
-		// Material-Art auswählen (bestimmt welche Fallart erzeugt wird)
-		C.print("->  Material-Art auswählen");
+		// Material-Art auswï¿½hlen (bestimmt welche Fallart erzeugt wird)
+		C.print("->  Material-Art auswï¿½hlen");
 		switch (MaterialArt.values[
 		                           C.selectChoice(
 		                        		   new String[] {MaterialArt.Biopsie.toString(), 
@@ -222,13 +211,13 @@ public class App {
 		f.setFallBeschreibung(C.inputString(0, 100));
 		// Material-Art setzen
 		
-		// Patienten auswählen
+		// Patienten auswï¿½hlen
 		C.print("->  Patient*in zuordnen");
 		Patient patient;
 		// Neuer Patient oder bereits erfasst?
 		int opt = C.selectChoice(new String[] {
 				"Neue Patient*in erfassen", 
-				"Bereits erfasste Patient*in auswählen"
+				"Bereits erfasste Patient*in auswï¿½hlen"
 				});
 		if (opt == 1 )
 			patient = neuerPatient();	
@@ -249,7 +238,7 @@ public class App {
 		C.print("->  Patient*in '" + patient.getName() + ", " + patient.getVorname() + "' wurde dem Fall zugeordnet!");
 		C.print("");
 		// Arzt zuweisen
-		C.print("Behandelden Arzt auswählen");
+		C.print("Behandelden Arzt auswï¿½hlen");
 		String[] arztChoices = new String[aerzte.size()];
 		for (int i = 0; i < aerzte.size(); i++)
 			arztChoices[i] = aerzte.get(i+1).getName() + ", " + aerzte.get(i+1).getVorname();
@@ -260,7 +249,7 @@ public class App {
 		// Fall Status setzen
 		f.setStatus(FallStatus.NEU);
 		
-		// Fall hinzufügen
+		// Fall hinzufï¿½gen
 		try {
 			PIS.addFall(f);
 		} catch (InvalidKeyException e) {
@@ -270,10 +259,10 @@ public class App {
 	}
 	
 	private static void fallBearbeiten() {
-		C.print("Unbearbeiteten Fall auswählen");
+		C.print("Unbearbeiteten Fall auswï¿½hlen");
 		Fall f = fallAuswaehlen(PIS.getFaelleOfStatus(FallStatus.NEU));
 		if (f==null) {
-			C.error("Es wurden keine Fälle mit dem Status 'Neu' gefunden!");
+			C.error("Es wurden keine Fï¿½lle mit dem Status 'Neu' gefunden!");
 			return;
 		}
 		f.setStatus(FallStatus.IN_BEARBEITUNG);
@@ -290,19 +279,33 @@ public class App {
 	}
 	
 	private static void fallExportieren() {
-		C.print("Fall in Bearbeitung auswählen");
+		C.print("Fall in Bearbeitung auswï¿½hlen");
 		Fall f = fallAuswaehlen(PIS.getFaelleOfStatus(FallStatus.IN_BEARBEITUNG));
 		if (f==null) {
-			C.error("Es wurden keine Fälle mit dem Status 'In Bearbeitung' gefunden!");
+			C.error("Es wurden keine Fï¿½lle mit dem Status 'In Bearbeitung' gefunden!");
 			return;
 		}
+		f.setStatus(FallStatus.IN_BEARBEITUNG);
+		C.print("Fall " + f.getFallIDFormatted() + " wird in .JSON File exportiert");
+		ObjectToJson toJson = new ObjectToJson();
+		switch (f.getMaterialArt()) {
+			case Biopsie:
+			toJson.biopsieToJson();
+				break;
+			case Resektat:
+			toJson.resektatToJson();
+			default:
+				break;
+		}
+		C.print("Fall erfolgreich Exportiert!");
+
 	}
 
 	private static void fallAnalysieren() {
-		C.print("Fall in Bearbeitung auswählen");
+		C.print("Fall in Bearbeitung auswï¿½hlen");
 		Fall f = fallAuswaehlen(PIS.getFaelleOfStatus(FallStatus.IN_BEARBEITUNG));
 		if (f==null) {
-			C.error("Es wurden keine Fälle mit dem Status 'In Bearbeitung' gefunden!");
+			C.error("Es wurden keine Fï¿½lle mit dem Status 'In Bearbeitung' gefunden!");
 			return;
 		}		
 	}
@@ -321,20 +324,20 @@ public class App {
 		C.print("==> Resektat dokumentieren");
 		C.print("->  Geben Sie das Gewicht der Prostata in Gramm an:");
 		r.setGewicht(C.inputDouble(1, 1000, 2));
-		C.print("->  Geben Sie die apiko-basale Länge in Millimetern an:");
+		C.print("->  Geben Sie die apiko-basale Lï¿½nge in Millimetern an:");
 		r.setApikoBasal(C.inputDouble(1, 1000, 2));
-		C.print("->  Geben Sie die horizontale Länge in Millimetern an:");
+		C.print("->  Geben Sie die horizontale Lï¿½nge in Millimetern an:");
 		r.setHorizontal(C.inputDouble(1, 1000, 2));
-		C.print("->  Geben Sie die antero-dorsale Länge in Millimetern an:");
+		C.print("->  Geben Sie die antero-dorsale Lï¿½nge in Millimetern an:");
 		r.setAnteroDorsal(C.inputDouble(1, 1000, 2));
 		
-		C.print("==> Prostata-Maße erfasst! Beginnen Sie mit dem Zuschnitt.");
-		C.print("->  Schneiden Sie den Apex ab und zerteilen Sie ihn in 2 Hälften...");
-		C.print("->  Anschließend zerschneiden Sie die beiden Teilhälften in beliebig viele Stücke.");
+		C.print("==> Prostata-Maï¿½e erfasst! Beginnen Sie mit dem Zuschnitt.");
+		C.print("->  Schneiden Sie den Apex ab und zerteilen Sie ihn in 2 Hï¿½lften...");
+		C.print("->  Anschlieï¿½end zerschneiden Sie die beiden Teilhï¿½lften in beliebig viele Stï¿½cke.");
 		C.print("->  Fortfahren (Enter)");
 		C.pressEnter();
 		
-		C.print("->  Beginne mit der Erfassung der Objektträger für den Apex...");
+		C.print("->  Beginne mit der Erfassung der Objekttrï¿½ger fï¿½r den Apex...");
 		r.setApex(new Apex());
 		objekttraegerErfassen(r.getApex(), true);
 		objekttraegerErfassen(r.getApex(), false);
@@ -342,25 +345,25 @@ public class App {
 		C.print("==> Apex-Zuschnitt wurde erfasst! Nun schneiden Sie die Prostata bis zur Basis in Scheiben...");
 		C.print("->  Wie viele Scheiben wurden erzeugt?");
 		int anzahlScheiben = C.inputInt(1, 10);
-		C.print("==> Anzahl der Scheiben wurde erfasst. Nun zerteilen Sie alle Scheiben in Hälften...");
-		C.print("->  Anschließend zerschneiden Sie die Teilhäften jeder Scheibe in beliebig viele Stücke.");
+		C.print("==> Anzahl der Scheiben wurde erfasst. Nun zerteilen Sie alle Scheiben in Hï¿½lften...");
+		C.print("->  Anschlieï¿½end zerschneiden Sie die Teilhï¿½ften jeder Scheibe in beliebig viele Stï¿½cke.");
 		C.print("->  Fortfahren (Enter)");
 		C.pressEnter();
 		
 		for (int i = 0; i < anzahlScheiben; i++) {
-			C.print("->  Beginne mit der Erfassung der Objektträger für Scheibe " + (i+1) + "...");
+			C.print("->  Beginne mit der Erfassung der Objekttrï¿½ger fï¿½r Scheibe " + (i+1) + "...");
 			Scheibe s = new Scheibe();
 			objekttraegerErfassen(s, true);
 			objekttraegerErfassen(s, false);
 			C.print("==> Zuschnitt von Scheibe " + (i+1) + " wurde erfasst!");
 			r.getScheiben().add(s);
 		}
-		C.print("==> Scheiben wurden erfasst! Zuletzt zerteilen Sie die Basis in 2 Hälften.");
-		C.print("->  Anschließend zerschneiden Sie die Teilhälften in beliebig viele Stücke.");
+		C.print("==> Scheiben wurden erfasst! Zuletzt zerteilen Sie die Basis in 2 Hï¿½lften.");
+		C.print("->  Anschlieï¿½end zerschneiden Sie die Teilhï¿½lften in beliebig viele Stï¿½cke.");
 		C.print("->  Fortfahren (Enter)");
 		C.pressEnter();
 		
-		C.print("->  Beginne mit der Erfassung der Objektträger für die Basis...");
+		C.print("->  Beginne mit der Erfassung der Objekttrï¿½ger fï¿½r die Basis...");
 		r.setBasis(new Basis());
 		objekttraegerErfassen(r.getBasis(), true);
 		objekttraegerErfassen(r.getBasis(), false);
@@ -373,7 +376,7 @@ public class App {
 		C.print("->  Wie viele Schnitte wurden erzeugt?");
 		int anzahlSchnitte = C.inputInt(1, 10);
 		for (int i = 0; i < anzahlSchnitte; i++) {
-			C.print("->  Farbe für Schnitt " + (i+1) + " festlegen");
+			C.print("->  Farbe fï¿½r Schnitt " + (i+1) + " festlegen");
 			String[] farben = SCHNITT_FARBEN.keySet().toArray(
 					new String[SCHNITT_FARBEN.size()]);
 			int choice = C.selectChoice(farben);
@@ -383,25 +386,25 @@ public class App {
 		C.print("==> Biopsie wurde im Fall " + b.getFallIDFormatted() + " dokumentiert!");
 	}
 	private static void objekttraegerErfassen(Scheibe s, boolean istRechteHaelfte) {
-		// Information um welche Hälfte es geht (für console output)
+		// Information um welche Hï¿½lfte es geht (fï¿½r console output)
 		String haelfteInfo;
 		if(istRechteHaelfte)
-			haelfteInfo = "rechte Hälfte";
+			haelfteInfo = "rechte Hï¿½lfte";
 		else
-			haelfteInfo = "linke Hälfte";
-		// Wie viel Stücke wurden erzeugt?
-		C.print("->  In wie viele Stücke haben Sie die "+haelfteInfo+" zerteilt?");
+			haelfteInfo = "linke Hï¿½lfte";
+		// Wie viel Stï¿½cke wurden erzeugt?
+		C.print("->  In wie viele Stï¿½cke haben Sie die "+haelfteInfo+" zerteilt?");
 		int anzahl = C.inputInt(1, 10);
-		// Objektträger erfassen
-		C.print("->  Geben Sie die Objektträger für die einzelnen Stücke an:");
+		// Objekttrï¿½ger erfassen
+		C.print("->  Geben Sie die Objekttrï¿½ger fï¿½r die einzelnen Stï¿½cke an:");
 		for (int i = 0; i < anzahl; i++) {
-			C.print("Objektträger für Stück "+(i+1)+" ("+haelfteInfo+"):");
+			C.print("Objekttrï¿½ger fï¿½r Stï¿½ck "+(i+1)+" ("+haelfteInfo+"):");
 			char objektTraeger = C.inputChar();
 			if(istRechteHaelfte)
 				s.addStueckRechts(new Stueck(objektTraeger));
 			else 
 				s.addStueckLinks(new Stueck(objektTraeger));
 		}
-		C.print("==> Objektträger wurden für die "+haelfteInfo+" erfasst!");
+		C.print("==> Objekttrï¿½ger wurden fï¿½r die "+haelfteInfo+" erfasst!");
 	}
 }
