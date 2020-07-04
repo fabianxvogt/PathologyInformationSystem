@@ -1,9 +1,14 @@
 package pis.mainapp;
 
+import java.awt.Color;
 import java.security.InvalidKeyException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
+import jdk.internal.joptsimple.util.KeyValuePair;
 import pis.console.ConsoleUtils;
 import pis.model.Arzt;
 import pis.model.Fall;
@@ -31,6 +36,8 @@ public class App {
 			"Fall analysieren",
 			"Beenden"
 	};
+	private static final Map<String, Color> SCHNITT_FARBEN = initFarben();
+
 	private static final ConsoleUtils C = new ConsoleUtils();
 	
 	private static PIS PIS = new PIS();
@@ -89,6 +96,24 @@ public class App {
 			C.print("Drücken Sie 'Enter' um zurück zum Hauptmenu zu kommmen.");
 			C.pressEnter();
 		}
+	}
+
+	private static Map<String, Color> initFarben() {
+		Map<String, Color> farben = new HashMap<String, Color>();
+		farben.put("Blau"         	,Color.BLUE	 		);
+		farben.put("Cyan"         	,Color.CYAN	 		);
+		farben.put("Grün"       	,Color.GREEN  		);
+		farben.put("Gelb"      		,Color.YELLOW 		);
+		farben.put("Magenta"   		,Color.MAGENTA 		);
+		farben.put("Orange"    		,Color.ORANGE 	 	);
+		farben.put("Pink"         	,Color.PINK 	 	);
+		farben.put("Rot"          	,Color.RED 	  		);
+		farben.put("Weiß"       	,Color.WHITE   		);
+		farben.put("Grau"			,Color.GRAY         );
+		farben.put("Hellgrau"   	,Color.LIGHT_GRAY 	);
+		farben.put("Dunkelgrau"		,Color.DARK_GRAY  	);
+		farben.put("Schwarz"	  	,Color.BLACK        );
+		return farben;
 	}
 
 	private static void welcomeDialog() {
@@ -251,12 +276,14 @@ public class App {
 			C.error("Es wurden keine Fälle mit dem Status 'Neu' gefunden!");
 			return;
 		}
+		f.setStatus(FallStatus.IN_BEARBEITUNG);
+		C.print("Fall " + f.getFallIDFormatted() + " wird in Bearbeitung genommen...");
 		switch (f.getMaterialArt()) {
 		case Biopsie:
-			
+			biopsieDokumentieren((Biopsie)f);
 			break;
 		case Resektat:
-			prostatektomieDurchfuehren((Resektat)f);
+			resektatDokumentieren((Resektat)f);
 		default:
 			break;
 		}
@@ -290,8 +317,8 @@ public class App {
 					faelle.get(i).getFallName();
 		return faelle.get(C.selectChoice(fallChoices)-1);
 	}
-	private static void prostatektomieDurchfuehren(Resektat r) {
-		C.print("==> Prostatektomie durchführen");
+	private static void resektatDokumentieren(Resektat r) {
+		C.print("==> Resektat dokumentieren");
 		C.print("->  Geben Sie das Gewicht der Prostata in Gramm an:");
 		r.setGewicht(C.inputDouble(1, 1000, 2));
 		C.print("->  Geben Sie die apiko-basale Länge in Millimetern an:");
@@ -338,7 +365,22 @@ public class App {
 		objekttraegerErfassen(r.getBasis(), true);
 		objekttraegerErfassen(r.getBasis(), false);
 		C.print("==> Basis-Zuschnitt wurde erfasst!");
-		C.print("==> Prostatektomie wurde im Fall " + r.getFallIDFormatted() + " dokumentiert!");
+		C.print("==> Resektat wurde im Fall " + r.getFallIDFormatted() + " dokumentiert!");
+	}
+	
+	private static void biopsieDokumentieren(Biopsie b) {
+		C.print("==> Biopsie dokumentieren");
+		C.print("->  Wie viele Schnitte wurden erzeugt?");
+		int anzahlSchnitte = C.inputInt(1, 10);
+		for (int i = 0; i < anzahlSchnitte; i++) {
+			C.print("->  Farbe für Schnitt " + (i+1) + " festlegen");
+			String[] farben = SCHNITT_FARBEN.keySet().toArray(
+					new String[SCHNITT_FARBEN.size()]);
+			int choice = C.selectChoice(farben);
+			b.schnittErzeugen(SCHNITT_FARBEN.get(farben[choice-1]));
+		}
+		C.print("==> Schnitte wurden erfasst!");
+		C.print("==> Biopsie wurde im Fall " + b.getFallIDFormatted() + " dokumentiert!");
 	}
 	private static void objekttraegerErfassen(Scheibe s, boolean istRechteHaelfte) {
 		// Information um welche Hälfte es geht (für console output)
