@@ -23,6 +23,9 @@ public class Person {
 	public void setAdresse(String adresse) {
 		this.adresse = adresse;
 	}
+	public String getVollenNamen() {
+		return this.name + ", " + this.vorname;
+	}
 	@Override
 	public String toString() {
 		return String.format("%20s", this.name)	+ "|" +

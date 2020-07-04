@@ -21,5 +21,15 @@ public class Biopsie extends Fall {
 	public void schnittErzeugen(Color c) {
 		this.schnitte.add(c);
 	}
+	@Override
+	protected String getAnalyseDetails() {
+		String analyse =
+				"SCHNITTE: " + "\n" +
+				"Anzahl Schnitte: " + this.schnitte.size() + "\n";
+		for (int i = 0; i < this.schnitte.size(); i++) {
+			analyse += "Farbe Schnitt " + (i+1) + ": " + this.schnitte.get(i) + "\n";
+		}
+		return analyse;
+	}
 
 }
