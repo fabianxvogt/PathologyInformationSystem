@@ -49,7 +49,22 @@ public abstract class Fall {
 		return String.format("%08d", this.fallID);
 	}	
 	public abstract MaterialArt getMaterialArt();
-
+	
+	public String getAnalyse() {
+		String analyse = 
+				"Analyse zum Fall " + this.getFallID() + " (" + this.getMaterialArt().toString() + "): \n" + 
+				"\n" +
+				"DATEN ZUM FALL: " +
+				"Name des Falls:  " + this.getFallName() + "\n" +
+				"Beschreibung:    " + this.getFallBeschreibung()  + "\n" +
+				"Material-Art:    " + this.getMaterialArt().toString()  + "\n" +
+				"Patient:         " + this.getPatient().getVollenNamen() + "\n" +
+				"Behandeln. Arzt: " + this.getBehandelnderArzt().getVollenNamen()  + "\n" +
+				"\n" +
+				this.getAnalyseDetails();
+		return analyse;
+	}
+	protected abstract String getAnalyseDetails();
 	@Override
 	public String toString() {
 		return "Fall{" +

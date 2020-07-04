@@ -304,7 +304,8 @@ public class App {
 		if (f==null) {
 			C.error("Es wurden keine Fälle mit dem Status 'In Bearbeitung' gefunden!");
 			return;
-		}		
+		}	
+		C.print(f.getAnalyse());
 	}
 	
 	private static Fall fallAuswaehlen(List<Fall> faelle) {

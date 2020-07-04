@@ -63,5 +63,47 @@ public class Resektat extends Fall {
 	public void setAnteroDorsal(double anteroDorsal) {
 		this.anteroDorsal = anteroDorsal;
 	}
-
+	protected String getAnalyseDetails() {
+		String analyse =
+				"DATEN ZUM RESEKTAT: \n" + 
+				"Gewicht:             " + this.gewicht + "\n" +
+				"Apiko-Basal:         " + this.apikoBasal + "\n" +
+				"Horizontal:          " + this.horizontal + "\n" +
+				"Antero-Dorsal:       " + this.anteroDorsal + "\n" +
+				"Anzahl der Scheiben: " + this.scheiben.size() + "\n" +
+				// Durchschnittliche Dicke pro Scheibe = ApikoBasal / (AnzahlScheiben+2)
+				// Apex und Basis werden einzeln erfasst und zählen nicht als Scheibe. Daher: AnzahlScheiben+2
+				"Durchschn. Dicke:    " + this.apikoBasal / (this.scheiben.size()+2) +
+				"\n" +
+				"OBJEKTTRÄGER:" + "\n" +
+				"Apex: " + "\n" +
+				getObjekttraegerString(this.getApex()) + "\n" +
+				"Scheiben: " + "\n";
+				for (Scheibe s : this.getScheiben()) {
+					analyse+=getObjekttraegerString(s) + "\n";
+				}
+				analyse += "Basis :" + "\n" +
+				getObjekttraegerString(this.getBasis()) + "\n";
+		return analyse;
+	}
+	private static String getObjekttraegerString(Scheibe s) {
+		String r = new String();
+		//rechte seite
+		for (int i = 0; i < 10; i++) {
+			if(s.getRechteStuecke().size() < i+1)
+				r+="  ";
+			else
+				r+=(s.getRechteStuecke().get(i).getObjektTraeger() + " ");
+		}
+		// Trenner
+		r+=" | ";
+		// linke seite
+		for (int i = 0; i < 10; i++) {
+			if(s.getLinkeStuecke().size() < i+1)
+				r+="  ";
+			else
+				r+=(s.getLinkeStuecke().get(i).getObjektTraeger() + " ");
+		}
+		return r;
+	}
 }
