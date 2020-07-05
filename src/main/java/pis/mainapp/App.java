@@ -247,7 +247,7 @@ public class App {
 		// Fall Status setzen
 		f.setStatus(FallStatus.NEU);
 		
-		// Fall hinzuf�gen
+		// Fall hinzufuegen
 		try {
 			PIS.addFall(f);
 		} catch (InvalidKeyException e) {
@@ -286,16 +286,6 @@ public class App {
 		f.setStatus(FallStatus.IN_BEARBEITUNG);
 		C.print("Fall " + f.getFallIDFormatted() + " wird in .JSON File exportiert");
 		f.exportJSON();
-		//ObjectToJson toJson = new ObjectToJson();
-		//switch (f.getMaterialArt()) {
-		//	case Biopsie:
-		//	toJson.biopsieToJson();
-		//		break;
-		//	case Resektat:
-		//	toJson.resektatToJson();
-		//	default:
-		//		break;
-		//}
 		C.print("Fall erfolgreich Exportiert!");
 
 	}
@@ -376,7 +366,7 @@ public class App {
 		C.print("->  Wie viele Schnitte wurden erzeugt?");
 		int anzahlSchnitte = C.inputInt(1, 10);
 		for (int i = 0; i < anzahlSchnitte; i++) {
-			C.print("->  Farbe f�r Schnitt " + (i+1) + " festlegen");
+			C.print("->  Farbe fuer Schnitt " + (i+1) + " festlegen");
 			String[] farben = SCHNITT_FARBEN.keySet().toArray(
 					new String[SCHNITT_FARBEN.size()]);
 			int choice = C.selectChoice(farben);

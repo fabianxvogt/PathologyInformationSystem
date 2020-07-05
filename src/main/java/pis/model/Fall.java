@@ -71,17 +71,6 @@ public abstract class Fall {
 		return analyse;
 	}
 	protected abstract String getAnalyseDetails();
-	@Override
-	public String toString() {
-		return "Fall{" +
-				"fallID=" + fallID +
-				", patient=" + patient +
-				", behandelnderArzt=" + behandelnderArzt +
-				", status=" + status +
-				", fallName='" + fallName + '\'' +
-				", fallBeschreibung='" + fallBeschreibung + '\'' +
-				'}';
-	}
 	
 	public void exportJSON() {
 		ObjectMapper mapper = new ObjectMapper();
