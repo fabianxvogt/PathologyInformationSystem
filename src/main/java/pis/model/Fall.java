@@ -82,6 +82,7 @@ public abstract class Fall {
         }
         try {
             FileWriter fileWriter = new FileWriter(
+            		"exporte/"+
             		this.getFallIDFormatted() +"_"+ 
             		this.getMaterialArt().toString() +"_"+
             		LocalDate.now().toString() +
