@@ -285,16 +285,17 @@ public class App {
 		}
 		f.setStatus(FallStatus.IN_BEARBEITUNG);
 		C.print("Fall " + f.getFallIDFormatted() + " wird in .JSON File exportiert");
-		ObjectToJson toJson = new ObjectToJson();
-		switch (f.getMaterialArt()) {
-			case Biopsie:
-			toJson.biopsieToJson();
-				break;
-			case Resektat:
-			toJson.resektatToJson();
-			default:
-				break;
-		}
+		f.exportJSON();
+		//ObjectToJson toJson = new ObjectToJson();
+		//switch (f.getMaterialArt()) {
+		//	case Biopsie:
+		//	toJson.biopsieToJson();
+		//		break;
+		//	case Resektat:
+		//	toJson.resektatToJson();
+		//	default:
+		//		break;
+		//}
 		C.print("Fall erfolgreich Exportiert!");
 
 	}

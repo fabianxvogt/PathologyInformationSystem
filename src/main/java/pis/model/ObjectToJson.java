@@ -1,6 +1,8 @@
 package pis.model;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import pis.model.biopsie.Biopsie;
 import pis.model.resektat.Resektat;
 
@@ -27,6 +29,7 @@ public class ObjectToJson {
     }
 
     public void storeInJson(String filename, FallObject f) {
+    	ObjectMapper mapper = new ObjectMapper();
         String s = null;
         try {
             s = mapper.writeValueAsString(f);

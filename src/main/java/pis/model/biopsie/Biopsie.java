@@ -8,18 +8,22 @@ import pis.model.Fall;
 import pis.model.MaterialArt;
 
 public class Biopsie extends Fall {
+
+	private List<Color> schnitte;
 	public Biopsie() {
 		super();
 		this.schnitte = new ArrayList<Color>();
 	}
 
-	private List<Color> schnitte;
 	@Override
 	public MaterialArt getMaterialArt() {
 		return MaterialArt.Biopsie;
 	}
 	public void schnittErzeugen(Color c) {
 		this.schnitte.add(c);
+	}
+	public List<Color> getSchnitte() {
+		return this.schnitte;
 	}
 	@Override
 	protected String getAnalyseDetails() {

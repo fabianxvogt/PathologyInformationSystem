@@ -1,5 +1,11 @@
 package pis.model;
 
+import java.io.FileWriter;
+import java.time.LocalDate;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public abstract class Fall {
 	private int fallID;
 	private Patient patient;
@@ -75,5 +81,28 @@ public abstract class Fall {
 				", fallName='" + fallName + '\'' +
 				", fallBeschreibung='" + fallBeschreibung + '\'' +
 				'}';
+	}
+	
+	public void exportJSON() {
+		ObjectMapper mapper = new ObjectMapper();
+        String s = null;
+        try {
+            s = mapper.writeValueAsString(this);
+        }catch (JsonProcessingException e){
+            e.printStackTrace();
+        }
+        try {
+            FileWriter fileWriter = new FileWriter(
+            		this.getFallIDFormatted() +"_"+ 
+            		this.getMaterialArt().toString() +"_"+
+            		LocalDate.now().toString() +
+            		".json"
+            );
+            fileWriter.write(s.toString());
+            fileWriter.flush();
+            fileWriter.close();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
 	}
 }
