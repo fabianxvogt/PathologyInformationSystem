@@ -30,13 +30,33 @@ zusätzlich die berechnete durchschnittliche Scheibendicke enthält.
 
 ## Funktionen
 
-### 1. 	Neue Aerzt*in einstellen
+#### 1. Neue Aerzt*in einstellen
+- Einstellen neuer Mitarbeiter
 
-2.	Aerzteliste",
-3.	Neue Patient*in aufnehmen",
-4.	Patientenliste",
-5.	Neuen Fall erfassen",
-6.	Fall im Labor bearbeiten",
-7.	Fall exportieren",
-8.	Fall analysieren",
-9.	Beenden"
+#### 2.	Aerzteliste
+- Vollständige Liste aller Mitarbeiter
+
+#### 3.	Neue Patient*in aufnehmen
+- Aufnehmen neuer Patienten
+
+#### 4.	Patientenliste
+- Vollständige Liste aller Patienten
+
+#### 5.	Neuen Fall erfassen
+- Erstellung eines neuen Falls (Biopsie oder Resektat)
+- Bedingung: Zuerst muss mindestens ein Arzt eingestellt sein
+
+#### 6.	Fall im Labor bearbeiten
+- Hiermit können Fälle, die sich im Status 'neu' befinden, im Labor bearbeitet und dokumentiert werden
+- Biopsie: Dokumentation der Schnittfarben
+- Resektat: Dokumentation der einzelnen Stücke und ihrer Objektträger
+- Anschließend wechselt der Fall-Status in 'bearbeitet'
+
+#### 7.	Fall exportieren
+- Export von Fällen in JSON
+
+#### 8.	Fall analysieren
+- Detailinformationen zu Fällen, welche sich im Status 'bearbeitet' befinden
+
+#### 9.	Beenden
+- Beendet das Programm
