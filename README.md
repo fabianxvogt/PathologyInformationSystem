@@ -1,5 +1,9 @@
 # Pathology Information System
 
+GitHub Link: https://github.com/fabianxvogt/PathologyInformationSystem
+
+## Aufgabenstellung
+
 Wir wollen ein minimales PIS als Konsolenanwendung programmieren, dass einen kleinen Teil der
 üblichen Funktionen zur Verfügung stellt. Auch thematisch werden wir uns eingrenzen und
 beschäftigen uns ausschließlich mit der Diagnostik des Prostatakarzinoms. Unser Konsolen-PIS soll
@@ -23,3 +27,16 @@ Labor bearbeitet (sprich zugeschnitten und entsprechend dokumentiert) wurden. An
 der Nummer kann der zu analysierende Fall ausgewählt werden. Anschließend soll eine
 Analyse ausgegeben werden, die die Anzahl der Objektträger des Falls sowie bei Resektaten
 zusätzlich die berechnete durchschnittliche Scheibendicke enthält.
+
+## Funktionen
+
+### 1. 	Neue Aerzt*in einstellen
+
+2.	Aerzteliste",
+3.	Neue Patient*in aufnehmen",
+4.	Patientenliste",
+5.	Neuen Fall erfassen",
+6.	Fall im Labor bearbeiten",
+7.	Fall exportieren",
+8.	Fall analysieren",
+9.	Beenden"

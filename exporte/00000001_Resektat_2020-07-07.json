@@ -1,0 +1,94 @@
+{
+  "fallID" : 1,
+  "patient" : {
+    "name" : "d",
+    "vorname" : "fdsf",
+    "adresse" : "df",
+    "krankenkasse" : "TK",
+    "patientIDFormatted" : "00000001",
+    "patientenID" : 1,
+    "vollenNamen" : "d, fdsf"
+  },
+  "behandelnderArzt" : {
+    "name" : "esdfs",
+    "vorname" : "dsf",
+    "adresse" : "sdf",
+    "arztID" : 1,
+    "arztIDFormatted" : "00000001",
+    "vollenNamen" : "esdfs, dsf"
+  },
+  "status" : "IN_BEARBEITUNG",
+  "fallName" : "dsfsd",
+  "fallBeschreibung" : "ds",
+  "gewicht" : 22.0,
+  "apikoBasal" : 2.0,
+  "horizontal" : 2.0,
+  "anteroDorsal" : 2.0,
+  "apex" : {
+    "rechteStuecke" : [ {
+      "objektTraeger" : "R"
+    } ],
+    "linkeStuecke" : [ {
+      "objektTraeger" : "H"
+    } ],
+    "stuecke" : [ {
+      "objektTraeger" : "R"
+    }, {
+      "objektTraeger" : "H"
+    } ],
+    "objekttraeger" : [ "R", "H" ]
+  },
+  "basis" : {
+    "rechteStuecke" : [ {
+      "objektTraeger" : "T"
+    } ],
+    "linkeStuecke" : [ {
+      "objektTraeger" : "T"
+    } ],
+    "stuecke" : [ {
+      "objektTraeger" : "T"
+    }, {
+      "objektTraeger" : "T"
+    } ],
+    "objekttraeger" : [ "T" ]
+  },
+  "scheiben" : [ {
+    "rechteStuecke" : [ {
+      "objektTraeger" : "I"
+    } ],
+    "linkeStuecke" : [ {
+      "objektTraeger" : "I"
+    }, {
+      "objektTraeger" : "O"
+    } ],
+    "stuecke" : [ {
+      "objektTraeger" : "I"
+    }, {
+      "objektTraeger" : "I"
+    }, {
+      "objektTraeger" : "O"
+    } ],
+    "objekttraeger" : [ "I", "O" ]
+  }, {
+    "rechteStuecke" : [ {
+      "objektTraeger" : "P"
+    }, {
+      "objektTraeger" : "Ü"
+    } ],
+    "linkeStuecke" : [ {
+      "objektTraeger" : "Ü"
+    } ],
+    "stuecke" : [ {
+      "objektTraeger" : "P"
+    }, {
+      "objektTraeger" : "Ü"
+    }, {
+      "objektTraeger" : "Ü"
+    } ],
+    "objekttraeger" : [ "P", "Ü" ]
+  } ],
+  "objektTraeger" : [ "R", "H", "T", "I", "O", "P", "Ü" ],
+  "materialArt" : "Resektat",
+  "analyse" : "Analyse zum Fall 1 (Resektat): \n\nDATEN ZUM FALL: Name des Falls:  dsfsd\nBeschreibung:    ds\nMaterial-Art:    Resektat\nPatient:         d, fdsf\nBehandeln. Arzt: esdfs, dsf\n\nOBJEKTTRAEGER:\nApex: \nR                    | H                   \nScheiben: \nI                    | I O                 \nP Ü                  | Ü                   \nBasis: \nT                    | T                   \nAnzahl Objekttraeger: 7\n",
+  "fallIDFormatted" : "00000001"
+}

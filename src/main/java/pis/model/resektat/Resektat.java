@@ -1,7 +1,10 @@
 package pis.model.resektat;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import pis.model.Fall;
 import pis.model.MaterialArt;
@@ -75,19 +78,16 @@ public class Resektat extends Fall {
 				// Apex und Basis werden einzeln erfasst und zählen nicht als Scheibe. Daher: AnzahlScheiben+2
 				"Durchschn. Dicke:    " + this.apikoBasal / (this.scheiben.size()+2) +
 				"\n";
-		int anzahlObjekttraeger = this.getApex().getAnzahlStuecke() + 
-				this.basis.getAnzahlStuecke();
 		analyse="OBJEKTTRAEGER:" + "\n" +
 				"Apex: " + "\n" +
 				getObjekttraegerString(this.getApex()) + "\n" +
 				"Scheiben: " + "\n";
 		for (Scheibe s : this.getScheiben()) {
 			analyse+=getObjekttraegerString(s) + "\n";
-			anzahlObjekttraeger+=s.getAnzahlStuecke();
 		}
 		analyse += "Basis: " + "\n" +
 				getObjekttraegerString(this.getBasis()) + "\n" +
-				"Anzahl Objekttraeger: " + anzahlObjekttraeger + "\n";
+				"Anzahl Objekttraeger: " + this.getObjektTraeger().size() + "\n";
 		return analyse;
 	}
 	private static String getObjekttraegerString(Scheibe s) {
@@ -109,5 +109,18 @@ public class Resektat extends Fall {
 				r+=(s.getLinkeStuecke().get(i).getObjektTraeger() + " ");
 		}
 		return r;
+	}
+	public List<Character> getObjektTraeger() {
+		// Objekttraeger der Scheiben sammeln
+		List<Character> objektraegerScheiben = new ArrayList<Character>();
+		for (Scheibe s : this.scheiben) 
+			objektraegerScheiben.addAll(s.getObjekttraeger());
+		// Eindeutige Objekttraeger von Scheiben, Apex und Basis zurueckgeben
+		return Stream.of(this.apex.getObjekttraeger(), 
+							this.basis.getObjekttraeger(), 
+							objektraegerScheiben)
+    			.flatMap(Collection::stream)
+    			.distinct()
+    			.collect(Collectors.toList());
 	}
 }

@@ -60,7 +60,7 @@ public class App {
 			case 4:
 				HashMap<Integer, Patient> patienten = PIS.getPatienten();
 				if (patienten.size() == 0) {
-					C.error("Bisher wurden keine Patient*innen erfasst!");
+					C.error("->  Bisher wurden keine Patient*innen erfasst!");
 					break;
 				}
 				C.print(String.format("%-8s", "Patient")+ "|" +String.format("%-20s", "Name")+ "|" +String.format("%-20s", "Vorname")+ "|" +String.format("%-40s", "Adresse"));
@@ -84,7 +84,7 @@ public class App {
 			case 9:
 				return;
 			}
-			C.print("Druecken Sie 'Enter' um zurueck zum Hauptmenu zu kommmen.");
+			C.print("==> Druecken Sie 'Enter' um zurueck zum Hauptmenu zu kommmen.");
 			C.pressEnter();
 		}
 	}
@@ -167,7 +167,7 @@ public class App {
 		// schauen ob mindestens ein Arzt vorhanden ist
 		HashMap<Integer, Arzt> aerzte = PIS.getAerzte();
 		if (aerzte.size() == 0) {
-			C.error("Bisher wurde kein Arzt eingestellt!");
+			C.error("->  Bisher wurde kein Arzt eingestellt!");
 			return;
 		}
 		Fall f;
@@ -208,7 +208,7 @@ public class App {
 		else {
 			HashMap<Integer, Patient> patienten = PIS.getPatienten();
 			if (patienten.size() == 0) {
-				C.error("Bisher wurde kein Patient erfasst!");
+				C.error("->  Bisher wurde kein Patient erfasst!");
 				patient = neuerPatient();
 			} else {
 				String[] patientChoices = new String[patienten.size()];
@@ -222,7 +222,7 @@ public class App {
 		C.print("->  Patient*in '" + patient.getName() + ", " + patient.getVorname() + "' wurde dem Fall zugeordnet!");
 		C.print("");
 		// Arzt zuweisen
-		C.print("Behandelden Arzt auswaehlen");
+		C.print("->  Behandelden Arzt auswaehlen");
 		String[] arztChoices = new String[aerzte.size()];
 		for (int i = 0; i < aerzte.size(); i++)
 			arztChoices[i] = aerzte.get(i+1).getName() + ", " + aerzte.get(i+1).getVorname();
@@ -243,14 +243,14 @@ public class App {
 	}
 	
 	private static void fallBearbeiten() {
-		C.print("Unbearbeiteten Fall auswaehlen");
+		C.print("==> Unbearbeiteten Fall auswaehlen");
 		Fall f = fallAuswaehlen(PIS.getFaelleOfStatus(FallStatus.NEU));
 		if (f==null) {
-			C.error("Es wurden keine Faelle mit dem Status 'Neu' gefunden!");
+			C.error("->  Es wurden keine Faelle mit dem Status 'Neu' gefunden!");
 			return;
 		}
 		f.setStatus(FallStatus.IN_BEARBEITUNG);
-		C.print("Fall " + f.getFallIDFormatted() + " wird in Bearbeitung genommen...");
+		C.print("->  Fall " + f.getFallIDFormatted() + " wird in Bearbeitung genommen...");
 		switch (f.getMaterialArt()) {
 		case Biopsie:
 			biopsieDokumentieren((Biopsie)f);
@@ -263,24 +263,24 @@ public class App {
 	}
 	
 	private static void fallExportieren() {
-		C.print("Fall in Bearbeitung auswaehlen");
+		C.print("==> Fall in Bearbeitung auswaehlen");
 		Fall f = fallAuswaehlen(PIS.getFaelleOfStatus(FallStatus.IN_BEARBEITUNG));
 		if (f==null) {
-			C.error("Es wurden keine Faelle mit dem Status 'In Bearbeitung' gefunden!");
+			C.error("->  Es wurden keine Faelle mit dem Status 'In Bearbeitung' gefunden!");
 			return;
 		}
 		f.setStatus(FallStatus.IN_BEARBEITUNG);
-		C.print("Fall " + f.getFallIDFormatted() + " wird in .JSON File exportiert");
+		C.print("->  Fall " + f.getFallIDFormatted() + " wird in .JSON File exportiert");
 		f.exportJSON();
-		C.print("Fall erfolgreich Exportiert!");
+		C.print("==> Fall erfolgreich Exportiert!");
 
 	}
 
 	private static void fallAnalysieren() {
-		C.print("Fall in Bearbeitung auswaehlen");
+		C.print("==> Fall in Bearbeitung auswaehlen");
 		Fall f = fallAuswaehlen(PIS.getFaelleOfStatus(FallStatus.IN_BEARBEITUNG));
 		if (f==null) {
-			C.error("Es wurden keine Faelle mit dem Status 'In Bearbeitung' gefunden!");
+			C.error("->  Es wurden keine Faelle mit dem Status 'In Bearbeitung' gefunden!");
 			return;
 		}	
 		C.print(f.getAnalyse());
@@ -321,8 +321,8 @@ public class App {
 		C.print("==> Apex-Zuschnitt wurde erfasst! Nun schneiden Sie die Prostata bis zur Basis in Scheiben...");
 		C.print("->  Wie viele Scheiben wurden erzeugt?");
 		int anzahlScheiben = C.inputInt(1, 10);
-		C.print("==> Anzahl der Scheiben wurde erfasst. Nun zerteilen Sie alle Scheiben in H�lften...");
-		C.print("->  Anschliessend zerschneiden Sie die Teilhaelften jeder Scheibe in beliebig viele St�cke.");
+		C.print("==> Anzahl der Scheiben wurde erfasst. Nun zerteilen Sie alle Scheiben in Haelften...");
+		C.print("->  Anschliessend zerschneiden Sie die Teilhaelften jeder Scheibe in beliebig viele Stuecke.");
 		C.print("->  Fortfahren (Enter)");
 		C.pressEnter();
 		
@@ -371,7 +371,7 @@ public class App {
 		// Objekttraeger erfassen
 		C.print("->  Geben Sie die Objekttraeger fuer die einzelnen Stuecke an:");
 		for (int i = 0; i < anzahl; i++) {
-			C.print("Objekttraeger fuer Stueck "+(i+1)+" ("+haelfteInfo+"):");
+			C.print("->  Objekttraeger fuer Stueck "+(i+1)+" ("+haelfteInfo+"):");
 			char objektTraeger = C.inputChar();
 			if(istRechteHaelfte)
 				s.addStueckRechts(new Stueck(objektTraeger));

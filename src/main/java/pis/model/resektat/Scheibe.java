@@ -1,7 +1,10 @@
 package pis.model.resektat;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Scheibe {
 	private List<Stueck> rechts, links;
@@ -21,7 +24,16 @@ public class Scheibe {
 	public void addStueckLinks(Stueck stueck) {
 		this.links.add(stueck);
 	}
-	public int getAnzahlStuecke() {
-		return this.rechts.size() + this.links.size();
+	public List<Character> getObjekttraeger() {
+		List<Character> objekttraeger = new ArrayList<Character>();
+		for (Stueck s : getStuecke())
+			if(!objekttraeger.contains(s.getObjektTraeger()))
+				objekttraeger.add(s.getObjektTraeger());
+		return objekttraeger;
+	}
+	public List<Stueck> getStuecke() {
+		return Stream.of(this.rechts, this.links)
+    			.flatMap(Collection::stream)
+    			.collect(Collectors.toList());
 	}
 }
