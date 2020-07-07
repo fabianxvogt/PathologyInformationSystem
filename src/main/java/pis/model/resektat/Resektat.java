@@ -8,7 +8,11 @@ import java.util.stream.Stream;
 
 import pis.model.Fall;
 import pis.model.MaterialArt;
-
+/**
+ * Resektat
+ * @author fabia
+ *
+ */
 public class Resektat extends Fall {
 
 	private double gewicht, apikoBasal, horizontal, anteroDorsal;

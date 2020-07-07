@@ -5,7 +5,11 @@ import java.util.List;
 
 import pis.model.Fall;
 import pis.model.MaterialArt;
-
+/**
+ * Biopsie
+ * @author fabia
+ *
+ */
 public class Biopsie extends Fall {
 
 	private List<String> schnittFarben;

@@ -8,7 +8,11 @@ import pis.model.resektat.*;
 import java.security.InvalidKeyException;
 import java.util.HashMap;
 import java.util.List;
-
+/**
+ * Main App
+ * @author fabia
+ *
+ */
 public class App {
 	private static final String[] MAIN_MENU = {
 			"Neue Aerzt*in einstellen",
@@ -118,7 +122,9 @@ public class App {
 		C.print("");
 		C.print("");
 	}
-	
+	/**
+	 * Neuen Arzt einstellen
+	 */
 	private static void neuerArzt() {
 		Arzt arzt = new Arzt();
 		C.print("==> Neue Mitarbeiter*in einstellen:");
@@ -136,7 +142,10 @@ public class App {
 			C.error(e.getMessage());
 		}
 	}
-	
+	/**
+	 * Neuen Patienten erfassen
+	 * @return Patient
+	 */
 	private static Patient neuerPatient() {
 		Patient patient = new Patient();
 		C.print("==> Neue Patient*in aufnehmen:");
@@ -161,7 +170,9 @@ public class App {
 			return null;
 		}
 	}
-
+	/**
+	 * Neuen Fall erfassen
+	 */
 	private static void neuerFall() {
 		C.print("==> Neuen Fall erfassen");
 		// schauen ob mindestens ein Arzt vorhanden ist
@@ -241,7 +252,9 @@ public class App {
 		}
 		C.print("==> Neuer Fall wurde erfasst! (ID: " + f.getFallIDFormatted() + ")");
 	}
-	
+	/**
+	 * Fall mit status 'neu' bearbeiten
+	 */
 	private static void fallBearbeiten() {
 		C.print("==> Unbearbeiteten Fall auswaehlen");
 		Fall f = fallAuswaehlen(PIS.getFaelleOfStatus(FallStatus.NEU));
@@ -261,7 +274,9 @@ public class App {
 			break;
 		}
 	}
-	
+	/**
+	 * Falls als JSON exportieren
+	 */
 	private static void fallExportieren() {
 		C.print("==> Fall in Bearbeitung auswaehlen");
 		Fall f = fallAuswaehlen(PIS.getFaelleOfStatus(FallStatus.IN_BEARBEITUNG));
@@ -275,7 +290,9 @@ public class App {
 		C.print("==> Fall erfolgreich Exportiert!");
 
 	}
-
+	/**
+	 * Bearbeiteten Fall analysieren
+	 */
 	private static void fallAnalysieren() {
 		C.print("==> Fall in Bearbeitung auswaehlen");
 		Fall f = fallAuswaehlen(PIS.getFaelleOfStatus(FallStatus.IN_BEARBEITUNG));
@@ -285,7 +302,11 @@ public class App {
 		}	
 		C.print(f.getAnalyse());
 	}
-	
+	/**
+	 * Auswahl eines Falls in der Console
+	 * @param faelle Fälle zur Auswahl
+	 * @return ausgewählter Fall
+	 */
 	private static Fall fallAuswaehlen(List<Fall> faelle) {
 		if(faelle.size() == 0)
 			return null;
@@ -296,6 +317,10 @@ public class App {
 					faelle.get(i).getFallName();
 		return faelle.get(C.selectChoice(fallChoices)-1);
 	}
+	/**
+	 * Dokumentation des Resektats
+	 * @param r zu dokumentierendes Resektat
+	 */
 	private static void resektatDokumentieren(Resektat r) {
 		C.print("==> Resektat dokumentieren");
 		C.print("->  Geben Sie das Gewicht der Prostata in Gramm an:");
@@ -346,7 +371,10 @@ public class App {
 		C.print("==> Basis-Zuschnitt wurde erfasst!");
 		C.print("==> Resektat wurde im Fall " + r.getFallIDFormatted() + " dokumentiert!");
 	}
-	
+	/**
+	 * Dokumentation der Biospie
+	 * @param b zu dokumentierende Biopsie
+	 */
 	private static void biopsieDokumentieren(Biopsie b) {
 		C.print("==> Biopsie dokumentieren");
 		C.print("->  Wie viele Schnitte wurden erzeugt?");
@@ -358,6 +386,11 @@ public class App {
 		C.print("==> Schnitte wurden erfasst!");
 		C.print("==> Biopsie wurde im Fall " + b.getFallIDFormatted() + " dokumentiert!");
 	}
+	/**
+	 * Objektträger für Scheibe erfassen
+	 * @param s
+	 * @param istRechteHaelfte
+	 */
 	private static void objekttraegerErfassen(Scheibe s, boolean istRechteHaelfte) {
 		// Information um welche Haelfte es geht (fuer console output)
 		String haelfteInfo;

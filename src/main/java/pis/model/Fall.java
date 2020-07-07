@@ -6,7 +6,11 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.FileWriter;
 import java.time.LocalDate;
-
+/**
+ * Fall
+ * @author fabia
+ *
+ */
 public abstract class Fall {
 	private int fallID;
 	private Patient patient;
