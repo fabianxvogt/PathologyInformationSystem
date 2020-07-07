@@ -1,10 +1,11 @@
 package pis.model;
 
-import java.io.FileWriter;
-import java.time.LocalDate;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
+import java.io.FileWriter;
+import java.time.LocalDate;
 
 public abstract class Fall {
 	private int fallID;
@@ -71,9 +72,21 @@ public abstract class Fall {
 		return analyse;
 	}
 	protected abstract String getAnalyseDetails();
+	@Override
+	public String toString() {
+		return "Fall{" +
+				"fallID=" + fallID +
+				", patient=" + patient +
+				", behandelnderArzt=" + behandelnderArzt +
+				", status=" + status +
+				", fallName='" + fallName + '\'' +
+				", fallBeschreibung='" + fallBeschreibung + '\'' +
+				'}';
+	}
 	
 	public void exportJSON() {
 		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
         String s = null;
         try {
             s = mapper.writeValueAsString(this);
@@ -82,7 +95,6 @@ public abstract class Fall {
         }
         try {
             FileWriter fileWriter = new FileWriter(
-            		"exporte/"+
             		this.getFallIDFormatted() +"_"+ 
             		this.getMaterialArt().toString() +"_"+
             		LocalDate.now().toString() +
