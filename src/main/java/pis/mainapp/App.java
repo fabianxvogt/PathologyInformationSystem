@@ -5,11 +5,9 @@ import pis.model.*;
 import pis.model.biopsie.Biopsie;
 import pis.model.resektat.*;
 
-import java.awt.*;
 import java.security.InvalidKeyException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class App {
 	private static final String[] MAIN_MENU = {
@@ -23,7 +21,13 @@ public class App {
 			"Fall analysieren",
 			"Beenden"
 	};
-	private static final Map<String, Color> SCHNITT_FARBEN = initFarben();
+	private static final String[] SCHNITT_FARBEN = {
+			"HE",
+			"PHH3",
+			"PD-L1",
+			"Fuchsin",
+			"PAP"
+	};
 
 	private static final ConsoleUtils C = new ConsoleUtils();
 	
@@ -83,24 +87,6 @@ public class App {
 			C.print("Druecken Sie 'Enter' um zurueck zum Hauptmenu zu kommmen.");
 			C.pressEnter();
 		}
-	}
-
-	private static Map<String, Color> initFarben() {
-		Map<String, Color> farben = new HashMap<String, Color>();
-		farben.put("Blau"         	,Color.BLUE	 		);
-		farben.put("Cyan"         	,Color.CYAN	 		);
-		farben.put("Gruen"       	,Color.GREEN  		);
-		farben.put("Gelb"      		,Color.YELLOW 		);
-		farben.put("Magenta"   		,Color.MAGENTA 		);
-		farben.put("Orange"    		,Color.ORANGE 	 	);
-		farben.put("Pink"         	,Color.PINK 	 	);
-		farben.put("Rot"          	,Color.RED 	  		);
-		farben.put("Weiß"       	,Color.WHITE   		);
-		farben.put("Grau"			,Color.GRAY         );
-		farben.put("Hellgrau"   	,Color.LIGHT_GRAY 	);
-		farben.put("Dunkelgrau"		,Color.DARK_GRAY  	);
-		farben.put("Schwarz"	  	,Color.BLACK        );
-		return farben;
 	}
 
 	private static void welcomeDialog() {
@@ -185,7 +171,7 @@ public class App {
 			return;
 		}
 		Fall f;
-		// Material-Art auswï¿½hlen (bestimmt welche Fallart erzeugt wird)
+		// Material-Art auswaehlen (bestimmt welche Fallart erzeugt wird)
 		C.print("->  Material-Art auswaehlen");
 		switch (MaterialArt.values[
 		                           C.selectChoice(
@@ -209,7 +195,7 @@ public class App {
 		f.setFallBeschreibung(C.inputString(0, 100));
 		// Material-Art setzen
 		
-		// Patienten auswï¿½hlen
+		// Patienten auswaehlen
 		C.print("->  Patient*in zuordnen");
 		Patient patient;
 		// Neuer Patient oder bereits erfasst?
@@ -313,13 +299,13 @@ public class App {
 	private static void resektatDokumentieren(Resektat r) {
 		C.print("==> Resektat dokumentieren");
 		C.print("->  Geben Sie das Gewicht der Prostata in Gramm an:");
-		r.setGewicht(C.inputDouble(1, 1000, 2));
-		C.print("->  Geben Sie die apiko-basale Lï¿½nge in Millimetern an:");
-		r.setApikoBasal(C.inputDouble(1, 1000, 2));
-		C.print("->  Geben Sie die horizontale Lï¿½nge in Millimetern an:");
-		r.setHorizontal(C.inputDouble(1, 1000, 2));
-		C.print("->  Geben Sie die antero-dorsale Lï¿½nge in Millimetern an:");
-		r.setAnteroDorsal(C.inputDouble(1, 1000, 2));
+		r.setGewicht(C.inputDouble(1, 1000, 3));
+		C.print("->  Geben Sie die apiko-basale Laenge in Millimetern an:");
+		r.setApikoBasal(C.inputDouble(1, 1000, 3));
+		C.print("->  Geben Sie die horizontale Laenge in Millimetern an:");
+		r.setHorizontal(C.inputDouble(1, 1000, 3));
+		C.print("->  Geben Sie die antero-dorsale Laenge in Millimetern an:");
+		r.setAnteroDorsal(C.inputDouble(1, 1000, 3));
 		
 		C.print("==> Prostata-Eigenschaften erfasst! Beginnen Sie mit dem Zuschnitt.");
 		C.print("->  Schneiden Sie den Apex ab und zerteilen Sie ihn in 2 Haelften...");
@@ -367,25 +353,22 @@ public class App {
 		int anzahlSchnitte = C.inputInt(1, 10);
 		for (int i = 0; i < anzahlSchnitte; i++) {
 			C.print("->  Farbe fuer Schnitt " + (i+1) + " festlegen");
-			String[] farben = SCHNITT_FARBEN.keySet().toArray(
-					new String[SCHNITT_FARBEN.size()]);
-			int choice = C.selectChoice(farben);
-			b.schnittErzeugen(SCHNITT_FARBEN.get(farben[choice-1]));
+			b.schnittErzeugen(SCHNITT_FARBEN[C.selectChoice(SCHNITT_FARBEN)-1]);
 		}
 		C.print("==> Schnitte wurden erfasst!");
 		C.print("==> Biopsie wurde im Fall " + b.getFallIDFormatted() + " dokumentiert!");
 	}
 	private static void objekttraegerErfassen(Scheibe s, boolean istRechteHaelfte) {
-		// Information um welche Hï¿½lfte es geht (fï¿½r console output)
+		// Information um welche Haelfte es geht (fuer console output)
 		String haelfteInfo;
 		if(istRechteHaelfte)
 			haelfteInfo = "rechte Haelfte";
 		else
 			haelfteInfo = "linke Haelfte";
-		// Wie viel Stï¿½cke wurden erzeugt?
+		// Wie viel Stuecke wurden erzeugt?
 		C.print("->  In wie viele Stuecke haben Sie die "+haelfteInfo+" zerteilt?");
 		int anzahl = C.inputInt(1, 10);
-		// Objekttrï¿½ger erfassen
+		// Objekttraeger erfassen
 		C.print("->  Geben Sie die Objekttraeger fuer die einzelnen Stuecke an:");
 		for (int i = 0; i < anzahl; i++) {
 			C.print("Objekttraeger fuer Stueck "+(i+1)+" ("+haelfteInfo+"):");

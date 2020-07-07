@@ -74,16 +74,20 @@ public class Resektat extends Fall {
 				// Durchschnittliche Dicke pro Scheibe = ApikoBasal / (AnzahlScheiben+2)
 				// Apex und Basis werden einzeln erfasst und zählen nicht als Scheibe. Daher: AnzahlScheiben+2
 				"Durchschn. Dicke:    " + this.apikoBasal / (this.scheiben.size()+2) +
-				"\n" +
-				"OBJEKTTRAEGER:" + "\n" +
+				"\n";
+		int anzahlObjekttraeger = this.getApex().getAnzahlStuecke() + 
+				this.basis.getAnzahlStuecke();
+		analyse="OBJEKTTRAEGER:" + "\n" +
 				"Apex: " + "\n" +
 				getObjekttraegerString(this.getApex()) + "\n" +
 				"Scheiben: " + "\n";
-				for (Scheibe s : this.getScheiben()) {
-					analyse+=getObjekttraegerString(s) + "\n";
-				}
-				analyse += "Basis :" + "\n" +
-				getObjekttraegerString(this.getBasis()) + "\n";
+		for (Scheibe s : this.getScheiben()) {
+			analyse+=getObjekttraegerString(s) + "\n";
+			anzahlObjekttraeger+=s.getAnzahlStuecke();
+		}
+		analyse += "Basis: " + "\n" +
+				getObjekttraegerString(this.getBasis()) + "\n" +
+				"Anzahl Objekttraeger: " + anzahlObjekttraeger + "\n";
 		return analyse;
 	}
 	private static String getObjekttraegerString(Scheibe s) {

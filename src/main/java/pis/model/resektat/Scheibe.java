@@ -21,4 +21,7 @@ public class Scheibe {
 	public void addStueckLinks(Stueck stueck) {
 		this.links.add(stueck);
 	}
+	public int getAnzahlStuecke() {
+		return this.rechts.size() + this.links.size();
+	}
 }
