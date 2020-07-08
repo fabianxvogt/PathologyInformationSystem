@@ -1,5 +1,9 @@
 package pis.model;
-
+/**
+ * Patient
+ * @author fabia
+ *
+ */
 public class Patient extends Person {
 	private int patientID;
 	private Krankenkasse krankenkasse;

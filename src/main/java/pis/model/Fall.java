@@ -60,7 +60,10 @@ public abstract class Fall {
 		return String.format("%08d", this.fallID);
 	}	
 	public abstract MaterialArt getMaterialArt();
-	
+	/**
+	 * Gibt eine Analyse des Falls als Text
+	 * @return
+	 */
 	public String getAnalyse() {
 		String analyse = 
 				"Analyse zum Fall " + this.getFallID() + " (" + this.getMaterialArt().toString() + "): \n" + 
@@ -76,7 +79,9 @@ public abstract class Fall {
 		return analyse;
 	}
 	protected abstract String getAnalyseDetails();
-	
+	/**
+	 * Exportiert diesen Fall als JSON
+	 */
 	public void exportJSON() {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(SerializationFeature.INDENT_OUTPUT, true);

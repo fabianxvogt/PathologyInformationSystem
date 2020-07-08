@@ -28,6 +28,9 @@ public class Biopsie extends Fall {
 	public List<String> getSchnitte() {
 		return this.schnittFarben;
 	}
+	/**
+	 * Gibt eine Analyse des Falls als Text 
+	 */
 	@Override
 	protected String getAnalyseDetails() {
 		String analyse =

@@ -1,5 +1,9 @@
 package pis.model;
-
+/**
+ * Person
+ * @author fabia
+ *
+ */
 public class Person {
 	private String name, vorname, adresse;
 	public Person() {

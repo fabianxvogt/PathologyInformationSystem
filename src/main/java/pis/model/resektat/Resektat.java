@@ -70,6 +70,9 @@ public class Resektat extends Fall {
 	public void setAnteroDorsal(double anteroDorsal) {
 		this.anteroDorsal = anteroDorsal;
 	}
+	/**
+	 * Analyse des Falls als Text
+	 */
 	protected String getAnalyseDetails() {
 		String analyse =
 				"DATEN ZUM RESEKTAT: \n" + 
@@ -94,6 +97,11 @@ public class Resektat extends Fall {
 				"Anzahl Objekttraeger: " + this.getObjektTraeger().size() + "\n";
 		return analyse;
 	}
+	/**
+	 * Gibt einen formatierte Darstellung der Objektraeger fuer beide Seiten
+	 * @param s
+	 * @return
+	 */
 	private static String getObjekttraegerString(Scheibe s) {
 		String r = new String();
 		//rechte seite
@@ -114,6 +122,10 @@ public class Resektat extends Fall {
 		}
 		return r;
 	}
+	/**
+	 * Gibt eine Liste aller verwendeten Objekttraeger 
+	 * @return Objekttraeger
+	 */
 	public List<Character> getObjektTraeger() {
 		// Objekttraeger der Scheiben sammeln
 		List<Character> objektraegerScheiben = new ArrayList<Character>();
