@@ -1,0 +1,73 @@
+{
+  "fallID" : 2,
+  "patient" : {
+    "name" : "sdfdf",
+    "vorname" : "sdf",
+    "adresse" : "sdf",
+    "krankenkasse" : "AOK",
+    "patientenID" : 3,
+    "patientIDFormatted" : "00000003",
+    "vollenNamen" : "sdfdf, sdf"
+  },
+  "behandelnderArzt" : {
+    "name" : "test arzt",
+    "vorname" : "vorname",
+    "adresse" : "asdasd",
+    "arztID" : 1,
+    "arztIDFormatted" : "00000001",
+    "vollenNamen" : "test arzt, vorname"
+  },
+  "status" : "IN_BEARBEITUNG",
+  "fallName" : "rrg",
+  "fallBeschreibung" : "drgdrg",
+  "gewicht" : 1.0,
+  "apikoBasal" : 1.0,
+  "horizontal" : 1.0,
+  "anteroDorsal" : 1.0,
+  "apex" : {
+    "objekttraeger" : [ "1" ],
+    "rechteStuecke" : [ {
+      "objektTraeger" : "1"
+    } ],
+    "linkeStuecke" : [ {
+      "objektTraeger" : "1"
+    } ],
+    "stuecke" : [ {
+      "objektTraeger" : "1"
+    }, {
+      "objektTraeger" : "1"
+    } ]
+  },
+  "basis" : {
+    "objekttraeger" : [ "1" ],
+    "rechteStuecke" : [ {
+      "objektTraeger" : "1"
+    } ],
+    "linkeStuecke" : [ {
+      "objektTraeger" : "1"
+    } ],
+    "stuecke" : [ {
+      "objektTraeger" : "1"
+    }, {
+      "objektTraeger" : "1"
+    } ]
+  },
+  "scheiben" : [ {
+    "objekttraeger" : [ "1" ],
+    "rechteStuecke" : [ {
+      "objektTraeger" : "1"
+    } ],
+    "linkeStuecke" : [ {
+      "objektTraeger" : "1"
+    } ],
+    "stuecke" : [ {
+      "objektTraeger" : "1"
+    }, {
+      "objektTraeger" : "1"
+    } ]
+  } ],
+  "materialArt" : "Resektat",
+  "objektTraeger" : [ "1" ],
+  "analyse" : "Analyse zum Fall 2 (Resektat): \n\nDATEN ZUM FALL: Name des Falls:  rrg\nBeschreibung:    drgdrg\nMaterial-Art:    Resektat\nPatient:         sdfdf, sdf\nBehandeln. Arzt: test arzt, vorname\n\nOBJEKTTRAEGER:\nApex: \n1                    | 1                   \nScheiben: \n1                    | 1                   \nBasis: \n1                    | 1                   \nAnzahl Objekttraeger: 1\n",
+  "fallIDFormatted" : "00000002"
+}

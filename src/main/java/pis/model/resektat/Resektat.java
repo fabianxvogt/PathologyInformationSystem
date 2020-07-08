@@ -86,6 +86,7 @@ public class Resektat extends Fall {
 				"Durchschn. Dicke:    " + this.apikoBasal / (this.scheiben.size()+2) +
 				"\n";
 		analyse="OBJEKTTRAEGER:" + "\n" +
+				"_Rechts______________|_Links______________\n" +
 				"Apex: " + "\n" +
 				getObjekttraegerString(this.getApex()) + "\n" +
 				"Scheiben: " + "\n";
