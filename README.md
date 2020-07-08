@@ -28,6 +28,13 @@ der Nummer kann der zu analysierende Fall ausgewählt werden. Anschließend soll
 Analyse ausgegeben werden, die die Anzahl der Objektträger des Falls sowie bei Resektaten
 zusätzlich die berechnete durchschnittliche Scheibendicke enthält.
 
+
+## Programm ausführen
+
+1. mvn compile
+2. mvn exec:java
+
+
 ## Funktionen
 
 #### 1. Neue Aerzt*in einstellen
